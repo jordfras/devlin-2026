@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Språket gör inte agenten smartare</title>
+    <meta name="description"
+          content="Föredrag på DevLin 2026 av Thomas Johannesson, Code 42d. Kommer snart: hela presentationen, med anteckningar och källor." />
+    <link rel="icon" href="images/code42d-icon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" />
+    <style>
+      /* The title slide of the talk, as a standalone teaser page. Colours are
+         the deck's tokens, taken from the Code 42d logo. */
+      :root {
+        --c42-red: #bf0000;
+        --c42-magenta: #a52a8c;
+        --c42-purple: #833fff;
+        --c42-bg: #16131c;
+        --c42-bg-deep: #0d0b12;
+        --c42-fg: #f4f1f8;
+        --c42-muted: #a99fbc;
+        --c42-gradient: linear-gradient(100deg, var(--c42-red), var(--c42-magenta), var(--c42-purple));
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body { height: 100%; margin: 0; }
+
+      body {
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background: radial-gradient(ellipse at 30% 0%, #221a2e 0%, var(--c42-bg) 45%, var(--c42-bg-deep) 100%);
+        color: var(--c42-fg);
+        font-family: "Source Sans 3", "Source Sans Pro", Helvetica, Arial, sans-serif;
+        font-size: clamp(16px, 2.6vmin, 30px);
+        text-align: center;
+      }
+
+      /* Oversized logo mark bled off the right edge, low opacity. */
+      .mark {
+        position: fixed;
+        right: -14vw;
+        top: 50%;
+        transform: translateY(-50%);
+        width: min(62vw, 110vh);
+        opacity: 0.24;
+        pointer-events: none;
+      }
+
+      main {
+        position: relative;
+        max-width: 36em;
+        padding: 1.5em 16px;
+      }
+
+      h1 {
+        font-size: 3.4em;
+        font-weight: 700;
+        line-height: 1.05;
+        margin: 0 0 0.25em;
+      }
+
+      .gradient {
+        background: var(--c42-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      hr {
+        width: 55%;
+        height: 5px;
+        margin: 1.1em auto 1.3em;
+        border: 0;
+        border-radius: 3px;
+        background: var(--c42-gradient);
+      }
+
+      .byline {
+        color: var(--c42-muted);
+        line-height: 1.7;
+        margin: 0;
+      }
+
+      .byline strong { color: var(--c42-fg); font-weight: 600; }
+
+      .teaser {
+        margin: 2.2em 0 0;
+        font-size: 0.9em;
+        color: var(--c42-muted);
+      }
+
+      .teaser strong { font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <img class="mark" src="images/code42d-icon.svg" alt="" />
+    <main>
+      <h1>Språket gör inte<br />agenten <span class="gradient">smartare</span></h1>
+      <hr />
+      <p class="byline">
+        <strong>Thomas Johannesson</strong> &middot; Code 42d AB<br />
+        DevLin 2026 &middot; Linköping &middot; 26 november
+      </p>
+      <p class="teaser"><strong class="gradient">Kommer snart:</strong> hela presentationen,
+        med anteckningar och källor.</p>
+    </main>
+  </body>
+</html>
