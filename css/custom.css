@@ -1,0 +1,1757 @@
+/*
+ * Code 42d styling for the DevLin 2026 deck.
+ * Palette taken from the company logo gradient: #BF0000 (red) -> #833FFF (purple).
+ */
+
+:root {
+  --c42-red: #bf0000;
+  --c42-crimson: #d02040;
+  --c42-magenta: #a52a8c;
+  --c42-violet: #8f36e0;
+  --c42-purple: #833fff;
+
+  --c42-bg: #16131c;
+  --c42-bg-deep: #0d0b12;
+  --c42-fg: #f4f1f8;
+  --c42-muted: #a99fbc;
+
+  --c42-gradient: linear-gradient(100deg, var(--c42-red), var(--c42-magenta), var(--c42-purple));
+}
+
+.reveal-viewport {
+  background: radial-gradient(ellipse at 30% 0%, #221a2e 0%, var(--c42-bg) 45%, var(--c42-bg-deep) 100%);
+}
+
+.reveal {
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--c42-fg);
+}
+
+.reveal h1, .reveal h2, .reveal h3 {
+  text-transform: none;
+  letter-spacing: -0.01em;
+  text-shadow: none;
+}
+
+/* A thin gradient rule usable as a divider or accent bar. */
+.c42-rule {
+  height: 5px;
+  border: 0;
+  border-radius: 3px;
+  background: var(--c42-gradient);
+}
+
+.c42-gradient-text {
+  background: var(--c42-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Title slide ---------- */
+
+.reveal .title-slide h1 {
+  font-size: 2.5em;
+  font-weight: 700;
+  margin-bottom: 0.1em;
+  line-height: 1.05;
+}
+
+.reveal .title-slide .subtitle {
+  font-size: 1.1em;
+  color: var(--c42-muted);
+  margin: 0.3em 0 0.9em;
+}
+
+.reveal .title-slide .c42-rule {
+  width: 55%;
+  margin: 0.8em auto 1.1em;
+}
+
+.reveal .title-slide .byline {
+  font-size: 0.62em;
+  color: var(--c42-muted);
+  line-height: 1.7;
+}
+
+.reveal .title-slide .byline strong {
+  color: var(--c42-fg);
+  font-weight: 600;
+}
+
+/* Oversized logo mark bled off the right edge, low opacity. */
+.title-mark {
+  position: absolute;
+  right: -14%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 62%;
+  opacity: 0.24;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.reveal .title-slide > *:not(.title-mark) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- About slide ---------- */
+
+/* One centred column: name, role, rule, logo, URL. */
+.reveal .about-slide h2 {
+  font-size: 1.6em;
+  margin: 0 0 0.15em;
+}
+
+.reveal .about-slide .role {
+  color: var(--c42-muted);
+  font-size: 0.75em;
+  margin: 0 0 0.8em;
+}
+
+.reveal .about-slide .c42-rule {
+  width: 4em;
+  margin: 0 auto 1.3em;
+}
+
+.reveal .about-slide img.about-logo {
+  display: block;
+  width: 62%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.reveal .about-slide .contact {
+  margin-top: 1.1em;
+  font-size: 0.55em;
+  color: var(--c42-muted);
+  letter-spacing: 0.04em;
+}
+
+/* Small uppercase label above a slide's main content. */
+.reveal .kicker {
+  font-size: 0.55em;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c42-muted);
+  margin-bottom: 0.6em;
+}
+
+/* Languages sized by how much they are used. */
+.reveal .lang-cloud {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.7em;
+  margin-top: 0.2em;
+  line-height: 1;
+}
+
+.reveal .lang-cloud .lang-main { font-size: 4.6em; font-weight: 700; letter-spacing: -0.03em; }
+.reveal .lang-cloud .lang-some { font-size: 1.7em; font-weight: 600; opacity: 0.9; }
+.reveal .lang-cloud .lang-little { font-size: 0.85em; color: var(--c42-muted); opacity: 0.75; }
+.reveal .lang-cloud .lang-least { font-size: 0.65em; color: var(--c42-muted); opacity: 0.5; }
+
+/* Small muted line closing a slide, e.g. a URL. */
+.reveal .slide-footer {
+  margin-top: 1.2em;
+  font-size: 0.5em;
+  color: var(--c42-muted);
+  letter-spacing: 0.04em;
+}
+
+.reveal img.demo-gif {
+  width: 80%;
+  margin: 0.2em auto 0;
+  border-radius: 6px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.tool-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4em;
+  align-items: stretch;
+}
+
+/* A card with a gradient bar on top and a faint violet wash. */
+.tool-card {
+  position: relative;
+  padding: 1.3em 1em 1.4em;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(131, 63, 255, 0.14), rgba(191, 0, 0, 0.04));
+  border: 1px solid rgba(169, 159, 188, 0.16);
+  overflow: hidden;
+}
+
+.tool-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--c42-gradient);
+}
+
+.reveal .tool-card .kicker { margin-bottom: 0.9em; }
+
+.reveal .tool-card .tool {
+  font-size: 1.35em;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.reveal a { color: var(--c42-purple); }
+.reveal a:hover { color: var(--c42-crimson); }
+
+.reveal .progress { color: var(--c42-purple); }
+.reveal .controls { color: var(--c42-muted); }
+
+/* ---------- Shared slide furniture ---------- */
+
+/* Small source attribution, centred under the slide's content. Every slide
+   carrying a number names where the number came from. */
+.reveal .source {
+  margin-top: 2.2em;
+  font-size: 0.36em;
+  color: var(--c42-muted);
+  opacity: 0.75;
+  text-align: center;
+}
+
+.reveal section.has-source { padding-bottom: 1.6em; }
+
+.reveal h3 {
+  font-size: 1.25em;
+  margin-bottom: 0.6em;
+}
+
+.reveal .lead {
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+
+.reveal .dim { color: var(--c42-muted); }
+
+/* ---------- Section divider ---------- */
+
+.reveal .section-slide h2 {
+  font-size: 2.1em;
+  line-height: 1.1;
+}
+
+.reveal .section-slide .kicker {
+  font-size: 0.55em;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c42-muted);
+  margin-bottom: 0.6em;
+}
+
+/* ---------- Big-number slides ---------- */
+
+.stat-row {
+  display: flex;
+  justify-content: center;
+  gap: 2.2em;
+  align-items: flex-start;
+  margin: 0.5em 0 0.3em;
+}
+
+.stat {
+  flex: 1 1 0;
+  max-width: 8em;
+}
+
+.stat .num {
+  /* inline-block so the gradient's box follows the text, even past the
+     stat's max-width; nowrap keeps a range like 90–97 % on one line. */
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 2.3em;
+  font-weight: 700;
+  line-height: 1;
+  background: var(--c42-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.stat .label {
+  display: block;
+  font-size: 0.42em;
+  line-height: 1.35;
+  color: var(--c42-muted);
+  margin-top: 0.9em;
+}
+
+/* ---------- Quotes ---------- */
+
+.reveal blockquote.c42 {
+  width: 88%;
+  margin: 0.4em auto;
+  padding: 0.7em 1.1em;
+  background: rgba(131, 63, 255, 0.09);
+  border: 0;
+  border-left: 4px solid transparent;
+  border-image: var(--c42-gradient) 1;
+  box-shadow: none;
+  font-style: normal;
+  font-size: 0.78em;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.reveal blockquote.c42 cite {
+  display: block;
+  margin-top: 0.6em;
+  font-size: 0.72em;
+  color: var(--c42-muted);
+  font-style: normal;
+}
+
+/* ---------- Side-by-side code comparison ---------- */
+
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1em;
+  align-items: start;
+}
+
+.compare h4 {
+  font-size: 0.5em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c42-muted);
+  margin: 0 0 0.5em;
+  text-align: left;
+}
+
+.reveal .compare pre {
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
+  font-size: 0.42em;
+}
+
+.reveal pre code {
+  padding: 0.7em 0.9em;
+  border-radius: 6px;
+  max-height: none;
+}
+
+/* Terminal / compiler output blocks. */
+.reveal pre.term {
+  width: 100%;
+  margin: 0.5em 0 0;
+  box-shadow: none;
+  font-size: 0.4em;
+}
+
+.reveal pre.term code {
+  background: #0b0910;
+  color: #d9d2e6;
+  display: block;
+  padding: 0.8em 1em;
+  border-radius: 6px;
+  border: 1px solid rgba(169, 159, 188, 0.18);
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.reveal .term .err { color: #ff6b6b; font-weight: 600; }
+.reveal .term .ok { color: #8ce99a; }
+.reveal .term .hi { color: #b98cff; }
+
+/* ---------- Verdict line under a comparison ---------- */
+
+.verdict {
+  margin-top: 0.9em;
+  font-size: 0.62em;
+  line-height: 1.4;
+}
+
+.verdict .bad { color: #ff8787; font-weight: 600; }
+.verdict .good { color: #8ce99a; font-weight: 600; }
+
+/* ---------- Scorecard table ---------- */
+
+.reveal table.scorecard {
+  font-size: 0.5em;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reveal table.scorecard th,
+.reveal table.scorecard td {
+  border: none;
+  border-bottom: 1px solid rgba(169, 159, 188, 0.18);
+  padding: 0.45em 0.6em;
+  text-align: left;
+}
+
+.reveal table.scorecard th { color: var(--c42-muted); font-weight: 600; }
+.reveal table.scorecard td.mark { text-align: center; width: 3em; font-size: 1.1em; }
+
+/* ---------- Takeaway list ---------- */
+
+.reveal ul.takeaways {
+  list-style: none;
+  margin: 0;
+  font-size: 0.8em;
+  line-height: 1.45;
+  text-align: left;
+}
+
+.reveal ul.takeaways li {
+  margin: 0 0 0.85em;
+  padding-left: 1.5em;
+  position: relative;
+}
+
+.reveal ul.takeaways li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.9em;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--c42-gradient);
+}
+
+/* ---------- XP loops morph (js/xp-morph.js) ---------- */
+
+.reveal svg.xp-morph {
+  width: 100%;
+  max-height: 640px;
+  overflow: visible;
+}
+
+.xp-morph text {
+  font-family: "Source Sans Pro", sans-serif;
+  fill: var(--c42-fg);
+}
+
+.xp-morph .xp-name { font-size: 30px; font-weight: 600; }
+.xp-morph .xp-time { font-size: 19px; fill: var(--c42-muted); letter-spacing: 0.04em; }
+.xp-morph .xp-code { font-size: 30px; font-weight: 600; }
+.xp-morph .xp-credit { font-size: 16px; fill: var(--c42-muted); text-anchor: end; opacity: 0.7; }
+
+/* Labels are hidden in the logo state and fade in once the morph lands. */
+.xp-morph .xp-node,
+.xp-morph .xp-code,
+.xp-morph .xp-times,
+.xp-morph .xp-credit {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.xp-morph.xp-done .xp-node,
+.xp-morph.xp-done .xp-code { opacity: 1; }
+.xp-morph.xp-done .xp-times { opacity: 1; transition-delay: 1s; }
+.xp-morph.xp-done .xp-credit { opacity: 0.7; transition-delay: 1.2s; }
+
+/* Going back hides labels at once; arriving on the slide skips the fade. */
+.xp-morph:not(.xp-done) .xp-node { transition-delay: 0s !important; }
+.xp-morph.xp-instant * { transition: none !important; }
+
+/* ---------- SAFe parody (3.3) ---------- */
+
+.parody {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1000 / 700;
+}
+
+.reveal .parody img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* reveal caps images at 95%; the callout overlay must match exactly. */
+  max-width: none;
+  max-height: none;
+  margin: 0;
+}
+
+/* Same viewBox as the image, laid over it, for the punchline highlight. */
+.parody-callout {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.parody-callout circle {
+  fill: none;
+  stroke: var(--c42-crimson);
+  stroke-width: 4;
+}
+
+.parody-callout text {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  fill: var(--c42-crimson);
+  text-anchor: end;
+}
+
+/* ---------- Statement slides: one big sentence ---------- */
+
+.reveal .statement h2 {
+  font-size: 1.9em;
+  line-height: 1.15;
+  max-width: 14em;
+  margin: 0 auto;
+}
+
+/* A time axis that grows heavier and redder towards the expensive end. */
+.reveal .cost-scale {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 1.4em;
+  margin-top: 1.4em;
+  font-weight: 600;
+}
+
+.reveal .cost-scale span:nth-child(1) { font-size: 0.5em; color: var(--c42-muted); }
+.reveal .cost-scale span:nth-child(2) { font-size: 0.65em; color: var(--c42-purple); }
+.reveal .cost-scale span:nth-child(3) { font-size: 0.85em; color: var(--c42-violet); }
+.reveal .cost-scale span:nth-child(4) { font-size: 1.05em; color: var(--c42-magenta); }
+.reveal .cost-scale span:nth-child(5) { font-size: 1.35em; color: var(--c42-red); }
+
+.nowrap { white-space: nowrap; }
+
+/* ---------- Sources slide (always last) ---------- */
+
+.reveal .references {
+  text-align: left;
+}
+
+.reveal .references h3 {
+  text-align: center;
+}
+
+.reveal .references ul {
+  list-style: none;
+  margin: 0;
+  font-size: 0.5em;
+  line-height: 1.45;
+}
+
+.reveal .references li {
+  margin: 0 0 0.9em;
+  padding-left: 1.2em;
+  position: relative;
+}
+
+.reveal .references li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 0.7em;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--c42-gradient);
+}
+
+.reveal .references cite { font-style: italic; }
+.reveal .references .slide-ref { color: var(--c42-muted); white-space: nowrap; }
+
+/* ---------- Starting conditions (stack 5) ---------- */
+
+.reveal .subline {
+  margin-top: 0.8em;
+  font-size: 0.8em;
+  color: var(--c42-muted);
+}
+
+/* A loop with an entry arrow: "the first attempt" coming in. */
+.reveal svg.first-try {
+  width: 60%;
+  margin: 0 auto 0.6em;
+  display: block;
+}
+
+.first-try .entry { stroke: var(--c42-muted); stroke-width: 6; fill: none; stroke-linecap: round; }
+.first-try .entry-head { fill: var(--c42-muted); }
+.first-try .entry-label { fill: var(--c42-muted); font-family: "Source Sans Pro", sans-serif; font-size: 26px; }
+.first-try .loop { stroke: url(#first-try-grad); stroke-width: 14; fill: none; stroke-linecap: round; }
+.first-try .loop-head { fill: #a52a8c; }
+
+/* Horizontal bars, one measure: muted bars, the bar the story is about in the
+   gradient. Values in text colour at the tip. */
+.reveal .bars {
+  font-family: "Source Sans Pro", sans-serif;
+  width: 80%;
+  margin: 0.6em auto 0;
+  text-align: left;
+}
+
+.reveal .bar-row {
+  display: grid;
+  grid-template-columns: 4.2em 1fr;
+  align-items: center;
+  column-gap: 0.6em;
+  margin: 0.55em 0;
+}
+
+.reveal .bar-name {
+  font-size: 0.8em;
+  font-weight: 600;
+  text-align: right;
+}
+
+.reveal .bar-track {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.reveal .bar {
+  height: 30px;
+  width: calc(var(--v) / 548 * 82%);   /* scaled to the largest bar, Java */
+  min-width: 6px;
+  background: rgba(169, 159, 188, 0.45);
+  border-radius: 0 4px 4px 0;
+}
+
+.reveal .bar-value {
+  font-size: 0.6em;
+  font-weight: 600;
+  color: var(--c42-muted);
+  white-space: nowrap;
+}
+
+.reveal .bar-row.is-focus .bar { background: var(--c42-gradient); }
+.reveal .bar-row.is-focus .bar-name,
+.reveal .bar-row.is-focus .bar-value { color: var(--c42-fg); }
+
+/*
+ * Once the slide has arrived (js/arrival.js) the bars grow from empty, and
+ * each value rides the tip, counting from 0 to its --bar-n (whole GB, an
+ * integer custom property shown via a counter). Bar and count share one
+ * duration and easing, and the width is proportional to the value, so the
+ * number always matches the bar. Replays on every entry; no click.
+ */
+@property --bar-n { syntax: '<integer>'; inherits: false; initial-value: 0; }
+
+.reveal .bars {
+  --grow-delay: 0.2s;
+  --grow-duration: 1.4s;
+  --grow-easing: cubic-bezier(0.3, 0, 0.2, 1);
+}
+
+.reveal .bar-value { counter-reset: bar-n var(--bar-n); }
+.reveal .bar-value::before { content: counter(bar-n) "\00a0GB"; }
+
+@keyframes bar-grow  { from { width: 0; min-width: 0; } }
+@keyframes bar-count { from { --bar-n: 0; } }
+
+/* Without reduced motion only; otherwise the bars simply stand there. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Sliding in: empty, so nothing is spent before the slide has arrived.
+     !important to beat the value's inline --bar-n. :not(.stack) everywhere
+     such a rule is used: the outer section of a vertical stack is .present
+     too but never .arrived, and would otherwise hold the slide at zero. */
+  .reveal section.present:not(.arrived):not(.stack) .bar { width: 0; min-width: 0; }
+  .reveal section.present:not(.arrived):not(.stack) .bar-value { --bar-n: 0 !important; }
+
+  .reveal section.arrived .bar {
+    animation: bar-grow var(--grow-duration) var(--grow-easing) var(--grow-delay) both;
+  }
+  .reveal section.arrived .bar-value {
+    animation: bar-count var(--grow-duration) var(--grow-easing) var(--grow-delay) both;
+  }
+}
+
+/* Two words side by side, the same word, different meaning. */
+.compare-words {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+}
+
+.reveal .compare-words .word {
+  font-size: 1.6em;
+  font-weight: 700;
+  margin: 0.1em 0 0.2em;
+}
+
+.reveal .compare-words .dim { font-size: 0.65em; }
+
+/* ---------- Ring map (js/ring-map.js) ---------- */
+
+.ring-intro {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.4em;
+  align-items: center;
+  text-align: left;
+}
+
+.ring-map svg {
+  width: 360px;
+  height: 360px;
+  display: block;
+}
+
+.ring-map circle { fill: none; }
+.ring-map .ring-later { stroke: rgba(169, 159, 188, 0.18); stroke-width: 3; }
+.ring-map .ring-done { stroke: rgba(169, 159, 188, 0.5); stroke-width: 4; }
+.ring-map .ring-active { stroke-width: 11; }
+
+.reveal .ring-intro h2 { font-size: 2.2em; margin: 0; }
+.reveal .ring-time { font-size: 0.9em; color: var(--c42-muted); margin: 0.2em 0 0; }
+
+/* ---------- Token loop: candidate tokens (6.2-6.3) ---------- */
+
+.reveal pre.token-line {
+  width: auto;
+  display: inline-block;
+  margin: 0.2em auto 0.6em;
+  box-shadow: none;
+  font-size: 0.75em;
+}
+
+.reveal pre.token-line code {
+  background: #0b0910;
+  border: 1px solid rgba(169, 159, 188, 0.18);
+  border-radius: 6px;
+  padding: 0.4em 0.9em;
+}
+
+
+.reveal .candidates {
+  width: 78%;
+  margin: 0 auto;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.reveal .cand {
+  display: grid;
+  grid-template-columns: 6.5em 1fr 3em 4em;
+  align-items: center;
+  column-gap: 0.6em;
+  margin: 0.35em 0;
+  font-size: 0.7em;
+}
+
+.reveal .cand code {
+  font-family: "Source Code Pro", monospace;
+  text-align: right;
+  color: var(--c42-fg);
+}
+
+.reveal .cand-bar {
+  height: 22px;
+  width: calc(var(--p) / 41 * 100%);
+  background: var(--c42-gradient);
+  border-radius: 0 4px 4px 0;
+}
+
+.reveal .cand-p { color: var(--c42-muted); font-weight: 600; font-size: 0.85em; }
+.reveal .cand-pick { color: var(--c42-crimson); font-weight: 700; font-size: 0.85em; }
+
+/* A candidate the type checker rules out: stays visible, struck and faded. */
+.reveal .fragment.reject {
+  opacity: 1;
+  visibility: inherit;
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+.reveal .fragment.reject.visible { opacity: 0.25; filter: grayscale(1); }
+.reveal code.fragment.reject.visible { text-decoration: line-through; }
+
+/* The bad and the good outcome share one spot; one fades out, the other in. */
+.reveal .token-outcome {
+  display: grid;
+  margin-top: 0.7em;
+  font-size: 0.6em;
+}
+
+.reveal .token-outcome > p { grid-area: 1 / 1; margin: 0; }
+.reveal .outcome-bad { color: #ff8787; font-family: "Source Code Pro", monospace; font-size: 0.9em; }
+.reveal .outcome-good { color: #8ce99a; }
+
+/* ---------- Where-map (js/where-map.js) ---------- */
+
+.where-map {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  justify-content: center;
+  font-size: 0.74em;
+  align-items: stretch;
+  gap: 0.8em;
+  text-align: left;
+}
+
+.wm-box {
+  padding: 0.8em 0.9em 0.9em;
+  min-width: 0;
+  border-radius: 10px;
+  border: 1px solid rgba(169, 159, 188, 0.22);
+  background: rgba(131, 63, 255, 0.06);
+}
+
+.reveal .wm-where {
+  white-space: nowrap;
+  font-size: 0.45em;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c42-muted);
+  margin: 0;
+}
+
+.reveal .wm-what { font-size: 1em; font-weight: 700; margin: 0.15em 0 0.5em; white-space: nowrap; }
+
+.reveal .wm-box ul { list-style: none; margin: 0; font-size: 0.7em; }
+
+.reveal .wm-loop {
+  color: rgba(169, 159, 188, 0.45);
+  margin: 0.25em 0;
+  white-space: nowrap;
+}
+
+.reveal .wm-mark { display: inline-block; width: 1.3em; }
+
+/* Loops the talk has not reached yet: there, but not readable. */
+.reveal .wm-loop.is-upcoming {
+  filter: blur(4px);
+  opacity: 0.6;
+}
+
+.reveal .wm-loop.is-active {
+  color: var(--c42-fg);
+  font-weight: 700;
+  font-size: 1.15em;
+}
+
+.reveal .wm-loop.is-active .wm-mark {
+  background: var(--c42-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.reveal .wm-arrows {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.8em;
+  font-size: 0.5em;
+  white-space: nowrap;
+  color: var(--c42-muted);
+  text-align: center;
+}
+
+.reveal .wm-arrow b { color: var(--c42-fg); font-size: 1.4em; }
+
+/* Strongest type system on the left, fading out to the right. */
+.reveal .strength-scale {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 1.2em;
+  margin-top: 1.3em;
+  font-weight: 600;
+}
+
+/* By tier, not position: every statically typed language shares one style. */
+.reveal .strength-scale .typed   { font-size: 1.1em; color: var(--c42-fg); }
+.reveal .strength-scale .hinted  { font-size: 0.7em; color: rgba(169, 159, 188, 0.8); }
+.reveal .strength-scale .untyped { font-size: 0.6em; color: rgba(169, 159, 188, 0.4); }
+
+/* A slide reference whose id does not exist (js/slide-refs.js). */
+.reveal .slide-ref-missing { color: #ff6b6b; font-weight: 700; }
+
+/* ---------- Compiler loop ---------- */
+
+.reveal pre.code-slide {
+  width: auto;
+  display: inline-block;
+  text-align: left;
+  box-shadow: none;
+  font-size: 0.6em;
+  margin: 0 auto;
+}
+
+.reveal pre.code-slide code { padding: 0.6em 1.2em; background: #0b0910; border: 1px solid rgba(169, 159, 188, 0.18); border-radius: 6px; }
+
+/* Terminal output under a code slide: compact, left-aligned. */
+.reveal .code-slide + pre.term {
+  width: auto;
+  display: inline-block;
+  font-size: 0.48em;
+  margin-top: 0.6em;
+  text-align: left;
+}
+
+.reveal .code-slide + pre.term.term-wide { font-size: 0.34em; }
+
+.reveal pre.term.term-large {
+  width: auto;
+  display: inline-block;
+  text-align: left;
+  font-size: 0.46em;
+}
+
+/* ---------- Same bug, different loop (js/bug-table.js) ---------- */
+
+.reveal .bug-table table {
+  margin: 0.3em auto 0;
+  border-collapse: separate;
+  border-spacing: 6px;
+  font-size: 0.47em;  /* 0.55em overflowed the 960px canvas to the right */
+}
+
+.reveal .bug-table th,
+.reveal .bug-table td {
+  border: none;
+  padding: 0.35em 0.5em;  /* 0.8em overflowed once the table was complete */
+  text-align: center;
+  min-width: 6.5em;
+  white-space: nowrap;
+}
+
+.reveal .bug-table thead th { color: var(--c42-fg); font-weight: 700; }
+.reveal .bug-table tbody th { text-align: right; font-weight: 600; color: var(--c42-fg); }
+
+.reveal .bug-table td { border-radius: 6px; }
+
+/*
+ * A cell's look lives in --cell-bg / --cell-fg so a stamp can carry it.
+ * Empty slot; caught in an earlier loop: quiet; the current loop: the
+ * gradient; cannot happen: faded.
+ */
+.reveal .bug-table td {
+  --cell-bg: rgba(169, 159, 188, 0.06);
+  --cell-fg: var(--c42-muted);
+  background: var(--cell-bg);
+  color: var(--cell-fg);
+}
+.reveal .bug-table td[class^="bt-"]:not(.bt-na) { --cell-bg: rgba(131, 63, 255, 0.18); --cell-fg: var(--c42-fg); }
+.reveal .bug-table td[class^="bt-"].bt-current { --cell-bg: var(--c42-gradient); --cell-fg: #fff; font-weight: 700; }
+.reveal .bug-table td.bt-na { --cell-bg: none; --cell-fg: rgba(169, 159, 188, 0.45); font-style: italic; }
+
+/*
+ * News on this slide is a stamp laid over the cell: the cell keeps its text
+ * (invisibly) for its size and shows an empty slot, and ::after draws the
+ * cell's look on top. js/bug-table.js picks the news (--stamp-i is the order):
+ * the current loop's cells, or on the Go slide the Go column. Once the slide
+ * has arrived (js/arrival.js) the stamps land one by one, language by
+ * language. Replays on every entry; no click.
+ */
+.reveal .bug-table td.bt-stamp {
+  --stamp-gap: 0.12s;     /* between stamps */
+  --stamp-delay: 0.2s;    /* after arrival, before the first */
+
+  position: relative;
+  background: rgba(169, 159, 188, 0.06);
+  color: transparent;
+}
+.reveal .bug-table td.bt-na.bt-stamp { background: none; }
+
+.reveal .bug-table td.bt-stamp::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: var(--cell-bg);
+  color: var(--cell-fg);
+}
+
+/* Not yet arrived: the slot is empty, so the stamp does not flash first. */
+.reveal section.present:not(.arrived):not(.stack) .bug-table td.bt-stamp::after { opacity: 0; }
+
+@keyframes bt-stamp {
+  0%   { opacity: 0; transform: scale(1.7) rotate(-4deg); }
+  55%  { opacity: 1; transform: scale(0.94) rotate(1deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.reveal section.arrived .bug-table td.bt-stamp::after {
+  animation: bt-stamp 0.32s cubic-bezier(0.5, 0, 0.6, 1)
+    calc(var(--stamp-delay) + var(--stamp-i, 0) * var(--stamp-gap)) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal section.arrived .bug-table td.bt-stamp::after { animation: none; }
+  .reveal section.present:not(.arrived):not(.stack) .bug-table td.bt-stamp::after { opacity: 1; }
+}
+
+/* ---------- Lint loop ---------- */
+
+/* Four languages side by side, the one in focus in the gradient. */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  align-items: stretch;
+}
+
+.tool-grid > div {
+  display: flex;
+  flex-direction: column;
+  padding: 0.8em 0.6em 0.9em;
+  border-radius: 10px;
+  border: 1px solid rgba(169, 159, 188, 0.16);
+  background: rgba(169, 159, 188, 0.04);
+}
+
+.tool-grid > div.is-focus {
+  background: linear-gradient(180deg, rgba(131, 63, 255, 0.16), rgba(191, 0, 0, 0.05));
+  border-color: rgba(131, 63, 255, 0.4);
+}
+
+.reveal .tool-grid p { margin: 0.15em 0; font-size: 0.55em; }
+.reveal .tool-grid .tg-lang { font-size: 0.8em; font-weight: 700; margin-bottom: 0.5em; }
+.reveal .tool-grid .tg-far { color: var(--c42-muted); font-style: italic; font-size: 0.45em; }
+.reveal .tool-grid .tg-verdict {
+  margin-top: auto;
+  padding-top: 0.8em;
+  font-size: 0.45em;
+  color: var(--c42-muted);
+}
+.reveal .tool-grid .is-focus .tg-verdict { color: var(--c42-fg); font-weight: 700; }
+
+/* A row of suppression comments, one per ecosystem. */
+.reveal .escape-hatches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6em 1em;
+  margin-top: 1.4em;
+  font-size: 0.6em;
+}
+
+.reveal .escape-hatches code {
+  padding: 0.25em 0.6em;
+  border-radius: 6px;
+  background: #0b0910;
+  border: 1px solid rgba(169, 159, 188, 0.18);
+  color: var(--c42-muted);
+}
+
+/* Position in the row, for animations that go left to right. */
+.reveal .escape-hatches code:nth-child(2) { --chip-i: 1; }
+.reveal .escape-hatches code:nth-child(3) { --chip-i: 2; }
+.reveal .escape-hatches code:nth-child(4) { --chip-i: 3; }
+.reveal .escape-hatches code:nth-child(5) { --chip-i: 4; }
+
+/*
+ * #/lint-bargain: each suppression comment wears a warning badge, and once
+ * the slide has arrived (js/arrival.js) the badges are hushed one by one,
+ * left to right — a short protest, then gone. Nothing was fixed. Replays on
+ * every entry; no click. The badge is a CSS triangle, no font glyph needed.
+ */
+/* Extra row gap so the badges on a wrapped second row clear the first. */
+.reveal .escape-hatches.silencing { gap: 1.1em 1.2em; }
+
+.reveal .escape-hatches.silencing code {
+  --hush-gap: 0.18s;      /* between badges */
+  --hush-delay: 0.4s;     /* after arrival, before the first */
+  position: relative;
+}
+
+.reveal .escape-hatches.silencing code::after {
+  content: "!";
+  position: absolute;
+  top: -0.75em;
+  right: -0.6em;
+  width: 1.3em;
+  height: 1.15em;
+  padding-top: 0.15em;
+  box-sizing: border-box;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background: #f5c518;
+  color: #16131c;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 0.85em;
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: center;
+}
+
+
+@keyframes hush {
+  0%   { transform: scale(1) rotate(0deg); opacity: 1; }
+  20%  { transform: scale(1.15) rotate(-14deg); }
+  40%  { transform: scale(1.15) rotate(12deg); }
+  60%  { transform: scale(1.1) rotate(0deg); opacity: 1; }
+  100% { transform: scale(0) rotate(0deg); opacity: 0; }
+}
+
+.reveal section.arrived .escape-hatches.silencing code::after {
+  animation: hush 0.45s ease-in
+    calc(var(--hush-delay) + var(--chip-i, 0) * var(--hush-gap)) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal .escape-hatches.silencing code::after { display: none; }
+}
+
+/*
+ * #/review-escape-hatches, the mirror of the above: the reviewer finds what
+ * the loops let through. Once the slide has arrived an exit sign flickers on
+ * over each escape hatch, left to right. Replays on every entry; no click.
+ */
+.reveal .escape-hatches.flagging { gap: 1.1em 1.2em; }
+
+.reveal .escape-hatches.flagging code {
+  --flag-gap: 0.18s;      /* between signs */
+  --flag-delay: 0.4s;     /* after arrival, before the first */
+  position: relative;
+}
+
+/* A green emergency-exit sign that flickers on, like a lamp starting. */
+.reveal .escape-hatches.flagging code::after {
+  content: "EXIT";
+  position: absolute;
+  top: -0.95em;
+  right: -0.9em;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  background: #00a651;
+  color: #fff;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 0.6em;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  box-shadow: 0 0 0.8em rgba(0, 166, 81, 0.7);
+  opacity: 0;
+}
+
+@keyframes flag {
+  0%   { opacity: 0; }
+  15%  { opacity: 1; }
+  30%  { opacity: 0.15; }
+  50%  { opacity: 1; }
+  62%  { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.reveal section.arrived .escape-hatches.flagging code::after {
+  animation: flag 0.45s steps(1, end)
+    calc(var(--flag-delay) + var(--chip-i, 0) * var(--flag-gap)) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal .escape-hatches.flagging code::after { animation: none; opacity: 1; }
+}
+
+.reveal .tool-card .tool-sub {
+  margin: 0.4em 0 0;
+  font-size: 0.6em;
+  color: var(--c42-muted);
+}
+
+/* Ring map: an outer loop feeding an inner one (data-feed). */
+.ring-map-large svg { width: 440px; height: 440px; overflow: visible; }
+.reveal .ring-intro h2.ring-statement { font-size: 1.5em; line-height: 1.15; }
+
+/* The fragment draws itself in rather than fading: line first, then the
+   head and the label. The transitions live on the .visible state only, so
+   stepping back removes the whole arrow at once, without animation. The
+   dash gap is longer than the path, so no round cap peeks out before the
+   line has started drawing. */
+.reveal .ring-map .rm-feed.fragment { opacity: 1; visibility: inherit; }
+
+.ring-map .rm-feed-line {
+  fill: none;
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
+  visibility: hidden;
+}
+.ring-map .rm-feed.visible .rm-feed-line {
+  stroke-dashoffset: 0;
+  visibility: visible;
+  transition: stroke-dashoffset 1.2s ease;
+}
+
+.ring-map .rm-feed-head,
+.ring-map .rm-feed-label { opacity: 0; }
+.ring-map .rm-feed.visible .rm-feed-head,
+.ring-map .rm-feed.visible .rm-feed-label { opacity: 1; transition: opacity 0.3s ease 1.1s; }
+.ring-map .rm-feed-head { fill: var(--c42-red); }
+
+.ring-map .rm-feed-label {
+  font-family: "Source Code Pro", monospace;
+  font-size: 22px;
+  font-weight: 700;
+  fill: var(--c42-fg);
+  paint-order: stroke;
+  stroke: var(--c42-bg);
+  stroke-width: 7px;
+}
+
+.ring-map .rm-center { fill: var(--c42-fg); }
+.ring-map .rm-center-label {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 19px;
+  fill: var(--c42-fg);
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: var(--c42-bg);
+  stroke-width: 7px;
+}
+
+/* ---------- Close ---------- */
+
+.ring-map-all .ring-active { stroke-width: 6; }
+
+.reveal .advice-examples {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6em 1.4em;
+  margin-top: 1.2em;
+  font-size: 0.6em;
+  color: var(--c42-muted);
+}
+
+.reveal .advice-examples b { color: var(--c42-fg); margin-right: 0.4em; }
+
+/* The close (#/close-logo): logo and QR code side by side, same size, each
+   with a caption. The columns are display: contents, so the images share the
+   grid's first row and the captions its second. The QR caption is two tight
+   lines (what, and the address); align-items: center centres the one-line
+   logo caption against them. The left column is wider so the bigger caption
+   fits on one line.
+   The logo is the cropped copy of the icon; the original's 2000px canvas has
+   empty margin around the mark and would look smaller than the QR code. */
+.close-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: auto auto;
+  gap: 0.6em 1.4em;
+  align-items: center;
+  text-align: center;
+}
+
+.close-col { display: contents; }
+
+.close-col:first-child > * { grid-column: 1; }
+.close-col:last-child > * { grid-column: 2; }
+.close-col > img { grid-row: 1; }
+.close-col > p { grid-row: 2; }
+
+.reveal .close-col img {
+  display: block;
+  width: 260px;
+  height: 260px;
+  margin: 0 auto;
+}
+
+.reveal .close-qr img {
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* The address under the QR code, for those who would rather type it. Styled
+   like .slide-footer (the git-tailor address on #/about-git-tailor). */
+.reveal .close-qr p { line-height: 1.3; }
+
+.reveal .close-qr a.close-url {
+  color: inherit;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.reveal .close-col p {
+  margin: 0;
+  font-size: 0.5em;
+  color: var(--c42-muted);
+}
+
+/* The chain and the safety net share one cell, so the swap does not move the
+   caption. The net is a fragment: on the click the chain fades out and the
+   net fades in. */
+.reveal .close-col p.close-swap {
+  display: grid;
+  font-size: 1em;
+  text-wrap: balance;
+}
+
+.reveal .close-swap > * { grid-area: 1 / 1; }
+
+.reveal .close-chain { transition: opacity 0.3s ease-out; }
+
+.reveal .close-swap:has(.close-net.visible) .close-chain { opacity: 0; }
+
+.reveal .close-net {
+  opacity: 0;
+  transition: opacity 0.4s ease-in 0.15s;
+}
+
+.reveal .close-net.visible { opacity: 1; }
+
+/* The chain builds up word by word once the slide has arrived
+   (js/arrival.js), replaying on every entry. Hidden only on the present,
+   not-yet-arrived slide, so the overview and print show it whole. */
+.reveal .close-chain > span { display: inline-block; }
+
+@keyframes chain-in {
+  from { opacity: 0; transform: translateY(0.3em); }
+  to   { opacity: 1; transform: none; }
+}
+
+.reveal section.present:not(.arrived):not(.stack) .close-chain > span { opacity: 0; }
+
+.reveal section.arrived .close-chain > span {
+  animation: chain-in 0.35s ease-out calc(var(--i) * 0.35s) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal section.arrived .close-chain > span { animation: none; }
+  .reveal section.present:not(.arrived):not(.stack) .close-chain > span { opacity: 1; }
+}
+
+/* The bug table with an extra (Go) column: slightly smaller, column marked. */
+.reveal .bug-table-wide table { font-size: 0.42em; border-spacing: 5px; }  /* spacing: room for the ring, see pad in bug-table.js */
+.reveal .bug-table-wide th,
+.reveal .bug-table-wide td { min-width: 5em; padding: 0.35em 0.35em; }
+
+.reveal .bug-table .bt-extra-ring {
+  position: absolute;
+  box-sizing: border-box;  /* same gap on both sides */
+  border: 3px solid var(--c42-purple);
+  border-radius: 12px;
+  pointer-events: none;
+}
+.reveal .tool-card .tool-sub:first-of-type { margin-top: 0.2em; }
+
+/* Arriving on a ring-map slide: the active ring swells briefly and settles.
+   js/arrival.js marks the slide .arrived once its transition has finished (so
+   the pulse is not spent while the slide is still sliding in) and clears it
+   on leaving, so it replays every time the slide is entered. */
+@keyframes ring-pulse {
+  0%   { stroke-width: 11; }
+  35%  { stroke-width: 22; }
+  100% { stroke-width: 11; }
+}
+
+.reveal section.arrived .ring-map .ring-active {
+  animation: ring-pulse 0.45s ease-out;
+}
+
+/* The closing overview (#/close-rings): the rings start dim and light up
+   one by one from the centre outwards, like ripples — milliseconds to
+   months. Each swells as it lights, then settles at the overview's thinner
+   width. --ring-i comes from js/ring-map.js, counted from the inside. */
+@keyframes ring-ripple {
+  0%   { stroke-width: 3; opacity: 0.18; }
+  40%  { stroke-width: 13; opacity: 1; }
+  100% { stroke-width: 6; opacity: 1; }
+}
+
+.reveal section.present:not(.arrived):not(.stack) .ring-map-all .ring-active { stroke-width: 3; opacity: 0.18; }
+
+.reveal section.arrived .ring-map-all .ring-active {
+  --ripple-gap: 0.11s;    /* between rings */
+  --ripple-delay: 0.15s;  /* after arrival, before the centre ring */
+  animation: ring-ripple 0.45s ease-out
+    calc(var(--ripple-delay) + var(--ring-i, 0) * var(--ripple-gap)) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal section.arrived .ring-map .ring-active { animation: none; }
+  .reveal section.present:not(.arrived):not(.stack) .ring-map-all .ring-active { stroke-width: 6; opacity: 1; }
+}
+
+/* ---------- Ferris kicks the garbage value off screen (#/compiler-rust) ----
+   The C++ slide ends on a garbage value that compiled, ran and reached the
+   user. On the Rust slide that value is already on screen when the slide
+   arrives, sitting in the space the compiler error is about to occupy. One
+   click runs the whole beat: Ferris scuttles in from off screen, boots the
+   value away, the error block fades in behind him, and he ends up standing to
+   its left.
+
+   Everything hangs off the error block's own .visible class, so the three
+   animations share one 2s timeline and stay in step. Reveal hides fragments
+   with visibility/opacity rather than display, so the error block already
+   holds its space before the click and nothing reflows when it appears --
+   which is what lets the garbage value sit exactly where it will go.
+
+   Nudge these to line the crab up with the value on the projector. */
+.ferris-kick {
+  --kick-band: 19%;        /* the error block's own height, roughly */
+  --kick-bottom: 0%;       /* 0 = band's feet level with the error block */
+  --ferris-height: 85%;    /* of the band */
+  --ferris-left: -3%;      /* Ferris's post, left of the error block; negative
+                              reaches past the slide box, which is still on
+                              screen in the letterboxed margin */
+  --victim-left: 40%;      /* where the garbage value waits to be kicked */
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--kick-bottom);
+  height: var(--kick-band);
+  pointer-events: none;
+}
+
+/* After the pre in the DOM, so the slight overlap reads as leaning on the box. */
+.ferris-kick .ferris {
+  position: absolute;
+  left: var(--ferris-left);
+  bottom: 0;
+  height: var(--ferris-height);
+  width: auto;
+  opacity: 0;              /* off screen until the click */
+  /* Rotate around the feet, so the kick reads as a lunge and not a spin. */
+  transform-origin: 50% 100%;
+}
+
+.ferris-kick .kick-victim {
+  position: absolute;
+  left: var(--victim-left);
+  bottom: 42%;
+  /* Same red as the garbage value in the terminal block on the C++ slide. */
+  color: #ff6b6b;
+  font-family: monospace;
+  font-size: 0.42em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Scuttle in from off screen left, wind up, kick, then back to the post. */
+@keyframes ferris-kick-scuttle {
+  0%   { transform: translateX(-600%) rotate(0deg); opacity: 1; }
+  10%  { transform: translateX(-430%) rotate(4deg); }
+  22%  { transform: translateX(-260%) rotate(-4deg); }
+  34%  { transform: translateX(-90%) rotate(4deg); }
+  44%  { transform: translateX(95%) rotate(-4deg); }
+  52%  { transform: translateX(100%) rotate(12deg); }    /* wind up */
+  60%  { transform: translateX(145%) rotate(-18deg); }   /* contact */
+  68%  { transform: translateX(120%) rotate(4deg); }     /* recoil */
+  80%  { transform: translateX(60%) rotate(-3deg); }
+  92%  { transform: translateX(0) rotate(2deg); }
+  100% { transform: translateX(0) rotate(0deg); opacity: 1; }
+}
+
+/* Still until contact at 60%, then away and spinning. */
+@keyframes ferris-kick-fly {
+  0%, 58% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  100%    { transform: translate(700%, -60%) rotate(720deg); opacity: 0; }
+}
+
+/* The error block waits for the kick to land instead of fading in on click. */
+@keyframes ferris-kick-reveal {
+  0%, 62%   { opacity: 0; }
+  78%, 100% { opacity: 1; }
+}
+
+.reveal .fragment.kick-reveal.visible {
+  animation: ferris-kick-reveal 2s ease-out forwards;
+}
+
+.kick-reveal.visible ~ .ferris-kick .ferris {
+  animation: ferris-kick-scuttle 2s cubic-bezier(0.3, 0, 0.4, 1) forwards;
+}
+
+.kick-reveal.visible ~ .ferris-kick .kick-victim {
+  animation: ferris-kick-fly 2s ease-out forwards;
+}
+
+/* No animation: the value is simply gone and Ferris is at his post. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal .fragment.kick-reveal.visible { animation: none; }
+  .kick-reveal.visible ~ .ferris-kick .ferris { animation: none; opacity: 1; }
+  .kick-reveal.visible ~ .ferris-kick .kick-victim { animation: none; opacity: 0; }
+}
+
+/* ---------- Diff stat that runs away (instr-overreach) ---------- */
+
+/*
+ * A `git diff --stat` summary line that starts as the one-line change you
+ * asked for and rolls up to the one the agent made. Plays once the slide has
+ * arrived (js/arrival.js), every time it is entered; no click. The numbers are integer custom properties shown via counters, so
+ * the browser interpolates them; the dials are the end values and timing.
+ */
+@property --ds-files { syntax: '<integer>'; inherits: true; initial-value: 1; }
+@property --ds-ins   { syntax: '<integer>'; inherits: true; initial-value: 1; }
+@property --ds-del   { syntax: '<integer>'; inherits: true; initial-value: 0; }
+
+.reveal .diffstat {
+  --ds-files-end: 37;
+  --ds-ins-end: 1284;
+  --ds-del-end: 906;
+  --ds-delay: 0.6s;      /* after arrival: let the heading land first */
+  --ds-duration: 1.6s;
+
+  margin-top: 1.2em;
+  font-family: monospace;
+  font-size: 0.55em;
+  color: var(--c42-muted);
+  white-space: nowrap;
+}
+
+/* Fixed-width boxes so the line does not jitter as digits are added. */
+.reveal .diffstat .n {
+  display: inline-block;
+  text-align: right;
+  color: var(--c42-fg);
+  font-weight: 600;
+}
+.reveal .diffstat .files { width: 2ch; }
+.reveal .diffstat .ins { width: 4ch; }
+.reveal .diffstat .del { width: 3ch; }
+.reveal .diffstat .files::after { content: counter(ds-files); counter-reset: ds-files var(--ds-files); }
+.reveal .diffstat .ins::after   { content: counter(ds-ins);   counter-reset: ds-ins var(--ds-ins); }
+.reveal .diffstat .del::after   { content: counter(ds-del);   counter-reset: ds-del var(--ds-del); }
+
+/*
+ * Plural endings and the deletions clause, as git omits them for 1 and 0.
+ * Hidden by font-size rather than display, which not every browser animates.
+ */
+.reveal .diffstat .late { font-size: 0; }
+
+@keyframes diffstat-roll {
+  to { --ds-files: var(--ds-files-end); --ds-ins: var(--ds-ins-end); --ds-del: var(--ds-del-end); }
+}
+
+@keyframes diffstat-late {
+  to { font-size: 1em; }
+}
+
+.reveal section.arrived .diffstat {
+  animation: diffstat-roll var(--ds-duration) cubic-bezier(0.5, 0, 0.2, 1) var(--ds-delay) both;
+}
+
+/* Switch on just after the counters start moving. */
+.reveal section.arrived .diffstat .late {
+  animation: diffstat-late 0.01s step-end calc(var(--ds-delay) + 0.1s) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal .diffstat, .reveal section.arrived .diffstat { animation: none; --ds-files: 37; --ds-ins: 1284; --ds-del: 906; }
+  .reveal .diffstat .late, .reveal section.arrived .diffstat .late { animation: none; font-size: 1em; }
+}
+
+/* ---------- Ferris makes room for the gopher (#/go-question) ----------
+   Ferris (back from #/compiler-rust) stands under the question when the
+   slide arrives. Once it has arrived (js/arrival.js) he crab-walks off the
+   stage to the left, and the Go gopher pops up out of a hole where he stood. Friendly, not a
+   fight: the gopher is CC BY and Go's brand page asks for nothing that
+   disparages Go. Replays on every entry; no click. */
+.reveal .go-stage {
+  --stage-height: 230px;
+  --ferris-height: 120px;
+  --gopher-height: 190px;
+  --ferris-aside: -900px;  /* far enough left to be off the screen */
+  --step-delay: 0.3s;      /* after arrival, before Ferris moves */
+
+  position: relative;
+  height: var(--stage-height);
+  margin-top: 0.6em;
+}
+
+.reveal .go-stage .ferris {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: var(--ferris-height);
+  width: auto;
+  margin: 0;
+  max-width: none;        /* reveal caps images at 95% of their box */
+  max-height: none;
+  transform: translateX(-50%);
+  transform-origin: 50% 100%;
+}
+
+/* The hole clips the gopher, so he rises out of the ground. */
+.reveal .go-stage .gopher-hole {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: var(--stage-height);
+  width: calc(var(--gopher-height) * 0.8);
+  transform: translateX(-50%);
+  overflow: hidden;
+}
+
+.reveal .go-stage .gopher-hole::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 0;
+  height: 10px;
+  border-radius: 50%;
+  background: #0b0910;
+  box-shadow: 0 0 0 2px rgba(169, 159, 188, 0.25);
+  opacity: 0;
+}
+
+.reveal .go-stage .gopher {
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  height: var(--gopher-height);
+  width: auto;
+  margin: 0;
+  max-width: none;        /* reveal caps images at 95% of their box */
+  max-height: none;
+  transform: translate(-50%, 110%);
+}
+
+/* Sideways, as crabs do, with a wobble per step, all the way off stage. */
+@keyframes ferris-aside {
+  0%   { transform: translateX(-50%) rotate(0deg); opacity: 1; }
+  12%  { transform: translateX(calc(-50% + var(--ferris-aside) * 0.08)) rotate(-5deg); }
+  25%  { transform: translateX(calc(-50% + var(--ferris-aside) * 0.2)) rotate(5deg); }
+  40%  { transform: translateX(calc(-50% + var(--ferris-aside) * 0.38)) rotate(-5deg); }
+  55%  { transform: translateX(calc(-50% + var(--ferris-aside) * 0.57)) rotate(5deg); }
+  70%  { transform: translateX(calc(-50% + var(--ferris-aside) * 0.75)) rotate(-5deg); }
+  85%  { transform: translateX(calc(-50% + var(--ferris-aside) * 0.9)) rotate(5deg); opacity: 1; }
+  100% { transform: translateX(calc(-50% + var(--ferris-aside))) rotate(0deg); opacity: 0; }
+}
+
+@keyframes gopher-hole-open {
+  from { opacity: 0; transform: scaleX(0.2); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+
+/* Up out of the hole, overshoot, settle. */
+@keyframes gopher-pop {
+  0%   { transform: translate(-50%, 110%); }
+  65%  { transform: translate(-50%, -6%); }
+  82%  { transform: translate(-50%, 3%); }
+  100% { transform: translate(-50%, 0); }
+}
+
+.reveal section.arrived .go-stage .ferris {
+  animation: ferris-aside 1.3s linear var(--step-delay) both;  /* keyframes accelerate */
+}
+
+.reveal section.arrived .go-stage .gopher-hole::after {
+  animation: gopher-hole-open 0.2s ease-out calc(var(--step-delay) + 0.35s) both;
+}
+
+.reveal section.arrived .go-stage .gopher {
+  animation: gopher-pop 0.5s ease-out calc(var(--step-delay) + 0.5s) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal .go-stage .ferris,
+  .reveal section.arrived .go-stage .ferris {
+    animation: none;
+    opacity: 0;
+  }
+  .reveal .go-stage .gopher-hole::after,
+  .reveal section.arrived .go-stage .gopher-hole::after { animation: none; opacity: 1; }
+  .reveal .go-stage .gopher,
+  .reveal section.arrived .go-stage .gopher { animation: none; transform: translate(-50%, 0); }
+}
+
+/* Rehearsal recorder badge (js/rehearsal.js); only exists with ?rehearse. */
+.rehearsal-badge {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font: 600 14px/1.4 monospace;
+  color: var(--c42-fg);
+  background: rgba(191, 0, 0, 0.75);
+  pointer-events: none;
+}
+
+.rehearsal-badge.stopped { background: rgba(131, 63, 255, 0.75); }
+
+/* ---------- Title swap: "hallucinatorn" knocks out "agenten" ---------- */
+
+/* The box holds the line open for whichever word is there; js/title-swap.js
+   supplies both widths. Swapped is a plain end state, so going back to the
+   slide or reloading on this step shows it still. Only the click itself adds
+   .swapping, which runs the animations. The width transition cannot wait for
+   .swapping: reveal lays the slide out before its fragmentshown handler runs,
+   so the width would already have jumped. It runs during the fall, so the
+   gap is open by the time the word lands. */
+.reveal .title-swap {
+  display: inline-block;
+  position: relative;
+  width: var(--swap-old, auto);
+  white-space: nowrap;
+  transition: width 0.45s ease-in-out;
+}
+
+.reveal .title-swap:has(.title-swap-new.visible) {
+  width: var(--swap-new, auto);
+}
+
+.reveal .title-swap-old {
+  display: inline-block;
+}
+
+.reveal .title-swap:has(.title-swap-new.visible) .title-swap-old {
+  opacity: 0;
+}
+
+/* A size down, so "hallucinatorn smartare" still fits on one line and the
+   title keeps its two lines instead of reflowing the whole slide. */
+.reveal .title-swap-new {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  font-size: 0.85em;
+  visibility: hidden;
+  background: var(--c42-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transform-origin: 50% 80%;
+}
+
+.reveal .title-swap-new.visible {
+  visibility: visible;
+  transform: rotate(-6deg);
+}
+
+.reveal .title-swap.swapping .title-swap-new.visible {
+  animation: title-swap-drop 1.4s both;
+}
+
+.reveal .title-swap.swapping .title-swap-old {
+  animation: title-swap-knock 0.45s cubic-bezier(0.5, 0, 0.9, 0.6) both;
+}
+
+/* Falls from just above the screen while "agenten" goes and the gap widens,
+   lands at 32 % (0.45 s), bounces twice and settles crooked. Starting
+   much higher, the fall happens off screen and the word seems to just appear. */
+@keyframes title-swap-drop {
+  0%   { transform: translateY(-420px) rotate(4deg); animation-timing-function: cubic-bezier(0.45, 0, 0.9, 0.5); }
+  32%  { transform: translateY(0) rotate(-2deg); animation-timing-function: ease-out; }
+  50%  { transform: translateY(-0.4em) rotate(-9deg); animation-timing-function: ease-in; }
+  65%  { transform: translateY(0) rotate(-5deg); animation-timing-function: ease-out; }
+  77%  { transform: translateY(-0.1em) rotate(-7deg); animation-timing-function: ease-in; }
+  88%  { transform: translateY(0) rotate(-6deg); }
+  100% { transform: translateY(0) rotate(-6deg); }
+}
+
+/* Drops away, crumpled and faded out, without leaving the slide's own box:
+   reveal centres a slide by its scrollHeight, transforms count towards it,
+   and Chrome keeps the largest extent even after the animation has ended. A
+   word sent off the bottom would push the whole slide upwards at the next
+   layout (fullscreen, a resize). Upwards overflow does not count, which is
+   why the drop from above is safe. */
+@keyframes title-swap-knock {
+  0%   { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
+  50%  { opacity: 1; }
+  100% { transform: translate(-0.4em, 90px) rotate(-35deg) scale(0.5); opacity: 0; }
+}

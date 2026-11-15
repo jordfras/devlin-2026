@@ -1,0 +1,57 @@
+Copyright (c) 2026 Code 42d AB
+
+This repository holds the slides for the talk "Språket gör inte agenten
+smartare" (DevLin 2026). Its contents are licensed in two parts.
+
+
+Content: CC BY-SA 4.0
+---------------------
+
+The talk itself (the slide text and speaker notes in index.html, and the
+images in images/ unless listed below) is licensed under the Creative
+Commons Attribution-ShareAlike 4.0 International License:
+
+    https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+The XP feedback-loops diagram in index.html is adapted from Don Wells's
+illustration (Wikimedia Commons, CC BY-SA 3.0) and is licensed under
+CC BY-SA 4.0 as permitted by that licence.
+
+
+Code: MIT
+---------
+
+The code in js/ and css/ is licensed under the MIT License:
+
+    Permission is hereby granted, free of charge, to any person obtaining a
+    copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+
+    The above copyright notice and this permission notice shall be included
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+Not covered by these licences
+-----------------------------
+
+- The Code 42d name and logos (images/code42d-*.svg) are trademarks of
+  Code 42d AB. All rights reserved.
+- reveal.js (reveal.js/) is by Hakim El Hattab and contributors, under the
+  MIT License in reveal.js/LICENSE.
+- Ferris (images/ferris.svg), from rustacean.net, is in the public domain
+  (CC0).
+- The Go gopher (images/go-gopher.svg) is by Renée French, under CC BY 4.0.
+- Quotations, figures and findings from cited works belong to their
+  authors; see the sources slides at the end of the deck.

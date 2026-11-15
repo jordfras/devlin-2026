@@ -3,111 +3,1759 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Språket gör inte agenten smartare</title>
-    <meta name="description"
-          content="Föredrag på DevLin 2026 av Thomas Johannesson, Code 42d. Kommer snart: hela presentationen, med anteckningar och källor." />
-    <link rel="icon" href="images/code42d-icon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" />
-    <style>
-      /* The title slide of the talk, as a standalone teaser page. Colours are
-         the deck's tokens, taken from the Code 42d logo. */
-      :root {
-        --c42-red: #bf0000;
-        --c42-magenta: #a52a8c;
-        --c42-purple: #833fff;
-        --c42-bg: #16131c;
-        --c42-bg-deep: #0d0b12;
-        --c42-fg: #f4f1f8;
-        --c42-muted: #a99fbc;
-        --c42-gradient: linear-gradient(100deg, var(--c42-red), var(--c42-magenta), var(--c42-purple));
-      }
 
-      * { box-sizing: border-box; }
+    <title>Språket gör inte agenten smartare — DevLin 2026</title>
 
-      html, body { height: 100%; margin: 0; }
-
-      body {
-        display: grid;
-        place-items: center;
-        overflow: hidden;
-        background: radial-gradient(ellipse at 30% 0%, #221a2e 0%, var(--c42-bg) 45%, var(--c42-bg-deep) 100%);
-        color: var(--c42-fg);
-        font-family: "Source Sans 3", "Source Sans Pro", Helvetica, Arial, sans-serif;
-        font-size: clamp(16px, 2.6vmin, 30px);
-        text-align: center;
-      }
-
-      /* Oversized logo mark bled off the right edge, low opacity. */
-      .mark {
-        position: fixed;
-        right: -14vw;
-        top: 50%;
-        transform: translateY(-50%);
-        width: min(62vw, 110vh);
-        opacity: 0.24;
-        pointer-events: none;
-      }
-
-      main {
-        position: relative;
-        max-width: 36em;
-        padding: 1.5em 16px;
-      }
-
-      h1 {
-        font-size: 3.4em;
-        font-weight: 700;
-        line-height: 1.05;
-        margin: 0 0 0.25em;
-      }
-
-      .gradient {
-        background: var(--c42-gradient);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-
-      hr {
-        width: 55%;
-        height: 5px;
-        margin: 1.1em auto 1.3em;
-        border: 0;
-        border-radius: 3px;
-        background: var(--c42-gradient);
-      }
-
-      .byline {
-        color: var(--c42-muted);
-        line-height: 1.7;
-        margin: 0;
-      }
-
-      .byline strong { color: var(--c42-fg); font-weight: 600; }
-
-      .teaser {
-        margin: 2.2em 0 0;
-        font-size: 0.9em;
-        color: var(--c42-muted);
-      }
-
-      .teaser strong { font-weight: 600; }
-    </style>
+    <link rel="stylesheet" href="reveal.js/dist/reset.css" />
+    <link rel="stylesheet" href="reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="reveal.js/dist/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="reveal.js/dist/plugin/highlight/monokai.css" />
+    <link rel="stylesheet" href="css/custom.css" />
   </head>
+
   <body>
-    <img class="mark" src="images/code42d-icon.svg" alt="" />
-    <main>
-      <h1>Språket gör inte<br />agenten <span class="gradient">smartare</span></h1>
-      <hr />
-      <p class="byline">
-        <strong>Thomas Johannesson</strong> &middot; Code 42d AB<br />
-        DevLin 2026 &middot; Linköping &middot; 26 november
-      </p>
-      <p class="teaser"><strong class="gradient">Kommer snart:</strong> hela presentationen,
-        med anteckningar och källor.</p>
-    </main>
+    <div class="reveal">
+      <div class="slides">
+        <!-- ===== Title ===== -->
+        <section id="title" data-timing="28" class="title-slide">
+          <img class="title-mark" src="images/code42d-icon.svg" alt="" />
+
+          <h1>Språket gör inte <span class="title-swap"><span class="title-swap-old">agenten</span><span class="title-swap-new fragment custom">hallucinatorn</span></span> <span class="c42-gradient-text">smartare</span></h1>
+
+          <hr class="c42-rule" />
+
+          <p class="byline">
+            <strong>Thomas Johannesson</strong> &middot; Code 42d AB<br />
+            DevLin 2026 &middot; Linköping &middot; 26 november
+          </p>
+
+          <aside class="notes">
+            <p><b>Välkomna</b> Hej och välkomna!</p>
+            <p><b>Tokigt svar?</b> Hur många här använder en AI-agent när ni kodar och har fått tillbaka
+            något riktigt tokigt? Kod som ser rimlig ut, men som t.ex. anropar en
+            funktion som inte finns? [Vänta.]</p>
+            <p><b>Hallucinatorn</b> På mitt uppdrag brukar vi kalla AI-agenten för hallucinatorn. [Klicka.]</p>
+            <p><b>Var fångas felen?</b> Agenten kommer att göra fel. Frågan är var felen fångas, och det är vad
+            det här föredraget handlar om.</p>
+          </aside>
+        </section>
+
+        <!-- ===== About me ===== -->
+        <section>
+          <!-- Who I am -->
+          <section id="about-me" data-timing="18" class="about-slide">
+            <h2>Thomas Johannesson</h2>
+            <p class="role">Utvecklare, konsult och Rustacean</p>
+            <hr class="c42-rule" />
+            <img class="about-logo" src="images/code42d-logo-white.svg" alt="Code 42d" />
+            <p class="contact">code42d.se</p>
+
+            <aside class="notes">
+              <p><b>Om mig</b> Snabbt om mig. Jag har kodat sedan 90-talet, med bakgrund i C++ och
+              inbyggda system. Sedan 2014 driver jag Code 42d här i Linköping, och tar
+              främst koduppdrag.</p>
+            </aside>
+          </section>
+
+          <!-- Languages of recent years -->
+          <section id="about-languages" data-timing="31">
+            <p class="kicker">De senaste åren</p>
+            <p class="lang-cloud">
+              <span class="lang-main c42-gradient-text">Rust</span>
+              <span class="lang-some">C++</span>
+              <span class="lang-little">Java</span>
+              <span class="lang-little">C#</span>
+              <span class="lang-least">Python</span>
+            </p>
+
+            <aside class="notes">
+              <p><b>Mest Rust</b> De senaste åren har jag mest jobbat i Rust. Rätt mycket C++, men även
+              lite Java, C# och Python.</p>
+              <p><b>En skala</b> De här språken täcker en skala. I ena änden Rust, med stark typning
+              och minnessäkerhet. Åt andra hållet tappar man det ena eller det andra:
+              C++ ger inga garantier för minnet, och Python har inga typer, i bästa fall
+              hintar.</p>
+              <p><b>Fyra språk</b> Jag har valt fyra av dessa språk att jämföra.</p>
+            </aside>
+          </section>
+
+          <!-- git-tailor -->
+          <section id="about-git-tailor" data-timing="34">
+            <p class="kicker">På fritiden</p>
+            <h3>git-tailor</h3>
+            <img class="demo-gif" src="images/git-tailor-demo.gif"
+                 alt="git-tailor i terminalen" />
+            <p class="slide-footer">github.com/jordfras/git-tailor</p>
+
+            <aside class="notes">
+              <p><b>git-tailor</b> På fritiden jobbar jag med git-tailor, ett terminalverktyg i Rust för
+              att städa commits innan man gör en PR.</p>
+              <p><b>Släppa taget, används</b> Det är mitt experiment med att släppa taget om koden till AI, men det
+              är ett riktigt projekt som jag och mina kollegor använder varje dag. Många
+              av exemplen i dag kommer därifrån.</p>
+              <p><b>Claude Code, GitHub Copilot</b> För git-tailor använder jag Claude Code, och på uppdrag GitHub Copilot. I båda
+              fallen främst med Claude-modellerna, så när jag säger agenten är det oftast det jag
+              menar.</p>
+            </aside>
+          </section>
+
+        </section>
+
+        <!-- ===== XP feedback loops ===== -->
+        <!-- xp-logo -> xp-loops morphs the logo into the loops; see js/xp-morph.js. -->
+        <section>
+          <!-- The logo -->
+          <section id="xp-logo" data-timing="4" data-transition="none">
+            <svg class="xp-morph" data-xp-state="logo" viewBox="0 0 1000 700" role="img"
+                 aria-label="Code 42d-loggan">
+              <g class="xp-labels">
+                <g class="xp-node"><text class="xp-name">Release plan</text></g>
+                <g class="xp-node"><text class="xp-name">Iteration plan</text></g>
+                <g class="xp-node"><text class="xp-name">Acceptance test</text></g>
+                <g class="xp-node"><text class="xp-name">Stand-up meeting</text></g>
+                <g class="xp-node"><text class="xp-name">Pair negotiation</text></g>
+                <g class="xp-node"><text class="xp-name">Unit test</text></g>
+                <g class="xp-node"><text class="xp-name">Pair programming</text></g>
+                <text class="xp-code">Code</text>
+                <g class="xp-times">
+                  <text class="xp-time">månader</text>
+                  <text class="xp-time">veckor</text>
+                  <text class="xp-time">dagar</text>
+                  <text class="xp-time">en dag</text>
+                  <text class="xp-time">timmar</text>
+                  <text class="xp-time">minuter</text>
+                  <text class="xp-time">sekunder</text>
+                </g>
+              </g>
+              <text class="xp-credit" x="1000" y="700">Efter Don Wells · Wikimedia Commons, CC BY-SA 3.0</text>
+            </svg>
+
+            <aside class="notes">
+              <p><b>Loggan?</b> Kommer ni ihåg loggan för mitt företag?</p>
+            </aside>
+          </section>
+
+          <!-- XP's feedback loops -->
+          <section id="xp-loops" data-timing="24" data-transition="none">
+            <svg class="xp-morph" data-xp-state="diagram" viewBox="0 0 1000 700" role="img"
+                 aria-label="XP:s planerings- och feedback-loopar">
+              <g class="xp-labels">
+                <g class="xp-node"><text class="xp-name">Release plan</text></g>
+                <g class="xp-node"><text class="xp-name">Iteration plan</text></g>
+                <g class="xp-node"><text class="xp-name">Acceptance test</text></g>
+                <g class="xp-node"><text class="xp-name">Stand-up meeting</text></g>
+                <g class="xp-node"><text class="xp-name">Pair negotiation</text></g>
+                <g class="xp-node"><text class="xp-name">Unit test</text></g>
+                <g class="xp-node"><text class="xp-name">Pair programming</text></g>
+                <text class="xp-code">Code</text>
+                <g class="xp-times">
+                  <text class="xp-time">månader</text>
+                  <text class="xp-time">veckor</text>
+                  <text class="xp-time">dagar</text>
+                  <text class="xp-time">en dag</text>
+                  <text class="xp-time">timmar</text>
+                  <text class="xp-time">minuter</text>
+                  <text class="xp-time">sekunder</text>
+                </g>
+              </g>
+              <text class="xp-credit" x="1000" y="700">Efter Don Wells · Wikimedia Commons, CC BY-SA 3.0</text>
+            </svg>
+
+            <aside class="notes">
+              <p><b>XP, feedback-loopar, format mig</b> För er som varit med sedan innan Agile blev en grej så kanske ni minns
+              Extreme Programming. XP handlar om feedback-loopar och formade hur jag
+              tänker kring mjukvaruutveckling tidigt i karriären. Och det håller
+              fortfarande!</p>
+              <p><b>Sekunder → månader, billigare</b> Looparna går från sekunder &mdash; parprogrammering &mdash; till månader.
+              Ju snabbare feedback, desto tidigare och billigare kan man korrigera fel.</p>
+            </aside>
+          </section>
+
+        </section>
+
+        <!-- ===== From XP to AI agents ===== -->
+        <section>
+          <!-- The question -->
+          <section id="bridge-question" data-timing="7" class="statement">
+            <h2>Vad har det här med <span class="c42-gradient-text nowrap">AI-agenter</span> att göra?</h2>
+
+            <aside class="notes">
+              <p><b>XP → agenter?</b> Så vad har feedback-looparna från XP med agentisk programmering att
+              göra?</p>
+            </aside>
+          </section>
+
+          <!-- There are loops here too -->
+          <section id="bridge-loops" data-timing="13" class="statement">
+            <h2>Det finns <span class="c42-gradient-text">loopar</span> här också</h2>
+
+            <aside class="notes">
+              <p><b>Agenten har loopar</b> Även för en agent finns en hel del feedback-loopar. Agenten skriver kod,
+              något säger att det är fel, agenten försöker igen.</p>
+              <p><b>Utvalda loopar</b> Jag har valt några intressanta loopar för den här presentationen.</p>
+              <!--<p>Och vilka loopar man har beror på vilket språk man skriver i.</p>-->
+            </aside>
+          </section>
+
+          <!-- The language does not make the agent smarter -->
+          <section id="bridge-not-smarter" data-timing="13" class="statement has-source">
+            <h2>Språket gör inte agenten <span class="c42-gradient-text">smartare</span></h2>
+            <p class="source">Cassano m.fl., MultiPL-E, IEEE TSE 2023</p>
+
+            <aside class="notes">
+              <p><b>Inte smartare, lika många fel</b> Men forskningen säger något intressant: språket gör inte agenten
+              smartare. Den gör t.ex. ungefär lika många misstag oavsett om språket har
+              stark typning eller inte.</p>
+              <p class="qa">[Om någon frågar: MultiPL-E testade samma uppgifter i 19 språk och
+              såg ingen generell effekt av typannoteringar på hur ofta modellen fick
+              rätt på första försöket.]</p>
+            </aside>
+          </section>
+
+          <!-- ...but it decides where mistakes are caught -->
+          <section id="bridge-where-caught" data-timing="6" class="statement">
+            <h2>Det avgör <span class="c42-gradient-text">var</span> misstagen fångas</h2>
+
+            <aside class="notes">
+              <p><b>Var, vilken loop</b> Språket avgör i stället <em>var</em> misstagen fångas. I vilken
+              loop.</p>
+              <p class="qa">[Om någon frågar: samma studie tydde på att koden som typkontrollen
+              stoppade var genuint fel. Typerna hittar inte på fel, de gör felen
+              synliga.]</p>
+            </aside>
+          </section>
+
+          <!-- ...and the loops cost different amounts -->
+          <section id="bridge-cost" data-timing="16" class="statement">
+            <h2>Och looparna <span class="c42-gradient-text">kostar</span> olika</h2>
+            <p class="cost-scale">
+              <span>millisekunder</span><span>sekunder</span><span>minuter</span><span>dagar</span><span>månader</span>
+            </p>
+
+            <aside class="notes">
+              <p><b>Olika kostnad</b> Och looparna kostar olika mycket, från millisekunder till månader.</p>
+              <p><b>Sekunder, timmar, månader</b> Ett fel som kompilatorn hittar kostar sekunder. Samma fel i en
+              kodgranskning kostar timmar, och i produktion kan det kosta månader.</p>
+            </aside>
+          </section>
+        </section>
+
+        <!-- ===== Starting conditions: training ===== -->
+        <section>
+          <!-- Every loop starts with a first attempt -->
+          <section id="start-first-try" data-timing="14" class="statement">
+            <svg class="first-try" viewBox="0 0 600 260" aria-hidden="true">
+              <defs>
+                <linearGradient id="first-try-grad" x1="1" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#833fff" />
+                  <stop offset="1" stop-color="#bf0000" />
+                </linearGradient>
+              </defs>
+              <!-- the entry arrow: the first attempt -->
+              <path d="M40 130 H250" class="entry" />
+              <path d="M250 118 L272 130 L250 142 Z" class="entry-head" />
+              <text x="40" y="112" class="entry-label">första försöket</text>
+              <!-- the loop -->
+              <path d="M300 130 A100 100 0 1 1 333.1 204.3" class="loop" />
+              <path d="M343.6 196.7 L308.6 170.7 L322.6 212.0 Z" class="loop-head" />
+            </svg>
+            <h2>Allt börjar med ett <span class="c42-gradient-text">första försök</span></h2>
+
+            <aside class="notes">
+              <p><b>Första försöket, looparna fångar</b> Allt börjar med att agenten gör ett första försök. Looparna finns
+              för att fånga felen.</p>
+              <p><b>Vad avgör?</b> Så innan vi tittar på looparna: vad avgör hur bra det första försöket
+              är?</p>
+            </aside>
+          </section>
+
+          <!-- Decided by training -->
+          <section id="start-training" data-timing="23" class="statement">
+            <h2>Det avgörs av <span class="c42-gradient-text">träningen</span></h2>
+            <p class="subline">som vi inte gör, på kod som inte är vår</p>
+
+            <aside class="notes">
+              <p><b>Träningen, inte vår kontroll</b> Det avgörs av vad modellen har tränats på. Och det är inget vi har någon
+              kontroll över: vi tränar inte modellerna, och datan är andras kod. Skriven
+              av människor men allt oftare av andra AI-modeller.</p>
+              <p><b>Mängd och kvalitet</b> Två saker spelar roll: hur mycket kod det finns, och hur bra den är.</p>
+            </aside>
+          </section>
+
+          <!-- Quantity -->
+          <section id="start-quantity" data-timing="42" class="has-source">
+            <p class="kicker">Öppen träningsdata, The Stack v2</p>
+            <div class="bars" role="img"
+                 aria-label="Java 548 GB, C++ 354 GB, Python 233 GB, Rust 16 GB">
+              <div class="bar-row">
+                <span class="bar-name">Java</span>
+                <span class="bar-track"><span class="bar" style="--v: 548.00"></span><span class="bar-value" style="--bar-n: 548"></span></span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-name">C++</span>
+                <span class="bar-track"><span class="bar" style="--v: 353.89"></span><span class="bar-value" style="--bar-n: 354"></span></span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-name">Python</span>
+                <span class="bar-track"><span class="bar" style="--v: 233.29"></span><span class="bar-value" style="--bar-n: 233"></span></span>
+              </div>
+              <div class="bar-row is-focus">
+                <span class="bar-name">Rust</span>
+                <span class="bar-track"><span class="bar" style="--v: 15.60"></span><span class="bar-value" style="--bar-n: 16"></span></span>
+              </div>
+            </div>
+            <p class="source">Lozhkov m.fl., StarCoder 2 and The Stack v2, 2024</p>
+
+            <aside class="notes">
+              <p><b>The Stack, 4 % av C++</b> Mängden först. Det här är The Stack v2, ett av de stora öppna dataseten
+              som kodmodeller tränas på. Rust har ungefär fyra procent av mängden C++ och
+              mindre än tre procent av Java.</p>
+              <p><b>Färre exempel</b> Mindre data betyder att modellen har sett färre exempel.</p>
+              <p class="qa">[Om någon frågar om nyare data: i den senaste versionen, The Stack v3
+              från i somras, har Rust vuxit fem gånger. Men C++ har vuxit tio gånger, så
+              Rust är fortfarande en liten del, ungefär två procent av C++.]</p>
+              <p><b>Påhittade bibliotek, vart tionde</b> En studie lät sex modeller skriva Rust utan att kompilera. Ungefär
+              vart tionde bibliotek som koden använde fanns inte på riktigt.</p>
+              <p><b>Aldrig sett, looparna fångar</b> Själv har jag aldrig sett en agent hitta på ett bibliotek. Felen finns,
+              men looparna fångar dem innan de når mig.</p>
+            </aside>
+          </section>
+
+          <!-- Quality: models replicate bugs -->
+          <section id="start-bug-replication" data-timing="22" class="has-source">
+            <div class="stat-row">
+              <div class="stat">
+                <span class="num">44&nbsp;%</span>
+                <span class="label">av modellernas buggar var identiska med en känd,
+                historisk bugg</span>
+              </div>
+            </div>
+            <p class="source">Guo m.fl., LLMs are Bug Replicators, 2025 (Java, 7 modeller)</p>
+
+            <aside class="notes">
+              <p><b>Kvalitet, buggar också</b> Sedan kvaliteten. Modellerna lär sig av koden de tränas på, inklusive
+              buggar.</p>
+              <p><b>Java, 4 av 10 samma bugg</b> En studie lät modeller skriva klart Java-kod där det en gång funnits en
+              bugg. Hälften av gångerna blev det fel, och fyra fel av tio var precis
+              den bugg som en gång rättats.</p>
+              <p class="qa">[Om någon frågar: för GPT-4o var 83 procent av buggarna exakt den
+              historiska buggen. Det säger något om vilken sorts buggar den skrev, inte
+              hur många. Forskarnas tolkning är att den troligen hade sett de här
+              projekten under träningen och mindes dem, buggar och allt.]</p>
+            </aside>
+          </section>
+
+          <!-- C++ vs Rust in the training data -->
+          <section id="start-compile-filter" data-timing="17">
+            <div class="compare-words">
+              <div>
+                <p class="kicker">C++</p>
+                <p class="word">kompilerar</p>
+                <p class="dim">med eller utan minnesbuggar</p>
+              </div>
+              <div>
+                <p class="kicker">Rust</p>
+                <p class="word c42-gradient-text">kompilerar</p>
+                <p class="dim">först efter borrow checkern</p>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>C++ kompilerar med buggar</b> I C++ kompilerar koden även när den har minnesbuggar, och det finns gott
+              om sådan kod. Den hamnar i träningsdatan.</p>
+              <p><b>Rust: borrow checkern filtrerar</b> Rust-kod som kompilerar har passerat borrow checkern. Den har redan
+              gått igenom samma filter som vi ska prata om.</p>
+              <p class="caveat">[Ärligt: det här är en slutsats, inte en mätning. Kod i bloggar och på
+              forum har inte alltid kompilerats.]</p>
+            </aside>
+          </section>
+
+          <!-- Rust: a worse first attempt -->
+          <section id="start-rust-first-try" data-timing="16" class="statement">
+            <h2>Rust: ett sämre <span class="c42-gradient-text">första försök</span></h2>
+            <p class="subline fragment">…men looparna fångar mer</p>
+
+            <aside class="notes">
+              <p><b>Underläge, för lite data</b> Men Rust är ändå i underläge. Även om träningsdatan antagligen är bättre
+              så finns det så pass mycket mindre data att första försöket blir sämre.</p>
+              <p><b>Looparna vinner tillbaka</b> [Klicka.] Men det är i looparna Rust vinner tillbaka. Så nu tittar vi på dem.</p>
+            </aside>
+          </section>
+        </section>
+
+        <!-- ===== Loop: token (innermost) ===== -->
+        <section>
+          <!-- Ring map: token -->
+          <section id="token-ring" data-timing="7">
+            <div class="ring-intro">
+              <div class="ring-map" data-rings="8" data-active="0"></div>
+              <div>
+                <p class="kicker">Innersta loopen</p>
+                <h2>Token</h2>
+                <p class="ring-time">millisekunder</p>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Inifrån och ut, millisekunder</b> Nu går vi igenom looparna, inifrån och ut. Den innersta är snabbast,
+              den mäts i millisekunder.</p>
+            </aside>
+          </section>
+
+          <!-- Where loops run: model at the provider, agent on your machine -->
+          <section id="token-where" data-timing="11">
+            <div class="where-map" data-active="token"></div>
+
+            <aside class="notes">
+              <p><b>Forskning, inne i modellen</b> Den här loopen är speciell. Den är fortfarande i forskningsstadie,
+              och den sitter <em>inne</em> i själva språkmodellen, i valet av varje token.</p>
+            </aside>
+          </section>
+
+          <!-- The model picks the next token; the type checker strikes (fragment) -->
+          <section id="token-candidates" data-timing="31" class="has-source">
+            <p class="kicker">Forskning · TypeScript</p>
+            <pre class="token-line"><code class="language-typescript">let antal: number = ▌</code></pre>
+
+            <div class="candidates">
+              <div class="cand">
+                <code class="fragment reject" data-fragment-index="0">"3"</code>
+                <span class="cand-bar fragment reject" data-fragment-index="0" style="--p: 41"></span>
+                <span class="cand-p">41&nbsp;%</span>
+                <span class="cand-pick fragment fade-out" data-fragment-index="0">&larr; väljs</span>
+              </div>
+              <div class="cand">
+                <code>3</code>
+                <span class="cand-bar" style="--p: 35"></span>
+                <span class="cand-p">35&nbsp;%</span>
+                <span class="cand-pick fragment fade-in" data-fragment-index="0">&larr; väljs</span>
+              </div>
+              <div class="cand">
+                <code class="fragment reject" data-fragment-index="0">antal.length</code>
+                <span class="cand-bar fragment reject" data-fragment-index="0" style="--p: 14"></span>
+                <span class="cand-p">14&nbsp;%</span>
+              </div>
+              <div class="cand">
+                <code class="fragment reject" data-fragment-index="0">true</code>
+                <span class="cand-bar fragment reject" data-fragment-index="0" style="--p: 7"></span>
+                <span class="cand-p">7&nbsp;%</span>
+              </div>
+            </div>
+
+            <div class="token-outcome">
+              <p class="outcome-bad fragment fade-out" data-fragment-index="0">Type 'string' is not
+              assignable to type 'number'.</p>
+              <p class="outcome-good fragment fade-in" data-fragment-index="0">typkontrollen stryker
+              det som inte kan bli en <code>number</code></p>
+            </div>
+            <p class="source">Påhittade siffror<br />Metoden: Mündler m.fl., Type-Constrained Code Generation, OOPSLA 2025</p>
+
+            <aside class="notes">
+              <p><b>Kandidater, "3" vinner</b> Modellen väljer en token i taget och för varje token har
+              modellen en lista med kandidater, och den mest sannolika vinner. Här blir det strängen "3",
+              och koden kompilerar inte.</p>
+              <p><b>Typkontroll i valet, 50–75 %</b> [Klicka.] Med typkontroll inne i valet stryks den innan modellen
+              väljer. I studien försvann 50-75% av kompileringsfelen.</p>
+              <p class="caveat">[Siffrorna är påhittade för illustrationen.]</p>
+            </aside>
+          </section>
+
+          <!-- The language point -->
+          <section id="token-type-system" data-timing="19" class="statement">
+            <h2>Filtret blir aldrig starkare än <span class="c42-gradient-text">typsystemet</span></h2>
+            <p class="strength-scale">
+              <span class="typed">Rust</span><span class="typed">C++</span><span class="typed">Java</span><span class="hinted">Python med type hints</span><span class="untyped">Python</span>
+            </p>
+
+            <aside class="notes">
+              <p><b>Aldrig starkare än typsystemet</b> Här spelar språket roll. Filtret blir aldrig starkare än typsystemet
+              det filtrerar mot.</p>
+              <p><b>Rust, C++, Java typat; Python hints</b> I Rust, C++ och Java är allt typat, alltid. Python kan ha type hints,
+              men där typer saknas godkänns allt.</p>
+              <p class="caveat">[Det är mätt på TypeScript. Att det skulle fungera ännu bättre för
+              Rust är en slutsats, inte en mätning. För Python har vi inte hittat
+              någon som provat.]</p>
+              <p class="qa">[Om någon frågar: Typinferens gör filtret svårare att bygga. Artikeln kringgår
+              det genom att kräva typer på bland annat funktioners parametrar och returtyper. Det kräver
+              Rust redan, men en lokal variabel kan få sin typ av hur den används senare. Vid
+              <code>let mut v = Vec::new()</code> vet filtret inte elementtypen än, så där kan det inte
+              stryka något som beror på den. Det är mitt resonemang, inte en mätning.]</p>
+            </aside>
+          </section>
+        </section>
+
+        <!-- ===== Loop: compiler ===== -->
+        <section>
+          <!-- Ring map: compiler -->
+          <section id="compiler-ring" data-timing="11">
+            <div class="ring-intro">
+              <div class="ring-map" data-rings="8" data-active="1"></div>
+              <div>
+                <p class="kicker">Nästa loop</p>
+                <h2>Kompilatorn</h2>
+                <p class="ring-time">sekunder</p>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Kompilatorn, sekunder</b> Nästa loop: kompilatorn, gör flera olika kontroller. Tex typkontroll
+              och borrow checker i Rusts fall. Den svarar på sekunder.</p>
+            </aside>
+          </section>
+
+          <!-- Where loops run: now on your machine -->
+          <section id="compiler-where" data-timing="6">
+            <div class="where-map" data-active="compiler"></div>
+
+            <aside class="notes">
+              <p><b>Lämnat modellen, agenten på din dator</b> Nu har vi lämnat modellen. Här är det agenten, på din
+              dator, som kör looparna.</p>
+              <p class="qa">[Om någon frågar: Copilot reagerar själv på kompilerings- och lintfel och
+              rättar dem i en loop. Claude Code ser dem bara om den frågar, via
+              IDE-pluginet, annars kör den kompilatorn i terminalen.]</p>
+            </aside>
+          </section>
+
+          <!-- The bug in C++: compiles clean -->
+          <section id="compiler-cpp" data-timing="33">
+            <p class="kicker">C++</p>
+            <pre class="code-slide"><code class="language-cpp" data-trim>
+int main()
+{
+    std::vector&lt;int&gt; some_vector = {1, 2, 3};
+
+    int&amp; first = some_vector[0];
+    std::cout &lt;&lt; first &lt;&lt; std::endl;
+
+    some_vector.push_back(4);
+    std::cout &lt;&lt; first &lt;&lt; std::endl;
+}
+            </code></pre>
+            <pre class="term fragment"><code class="nohighlight" data-noescape>$ g++ -Wall -Wextra -O2 main.cpp      <span class="ok"># inga varningar</span>
+$ ./a.out
+1
+<span class="err">-1123946309</span></code></pre>
+
+            <aside class="notes">
+              <p><b>Referens, vektorn flyttar</b> Här är en bugg i C++. Vi tar en referens till första elementet i en
+              vektor. Sedan lägger vi till ett element. Då kan vektorn behöva flytta
+              sitt innehåll till ett nytt minnesområde, och referensen pekar på
+              minne som inte längre är vårt.</p>
+              <p><b>Kompilerar, kör, skräp</b> [Klicka.] Det kompilerar, utan en enda varning. Och det kör. Andra
+              raden i utskriften blir skräp.</p>
+              <p><b>Fångas inte här</b> Det här är precis den sortens fel en agent kan skriva, men i C++ fångar den här loopen det inte.</p>
+            </aside>
+          </section>
+
+          <!-- The same bug in Rust: rejected -->
+          <section id="compiler-rust" data-timing="24">
+            <p class="kicker">Rust</p>
+            <pre class="code-slide"><code class="language-rust" data-trim>
+fn main() {
+    let mut some_vector = vec![1, 2, 3];
+
+    let first = &amp;some_vector[0];
+    println!("{first}");
+
+    some_vector.push(4);
+    println!("{first}");
+}
+            </code></pre>
+            <pre class="term term-wide fragment kick-reveal"><code class="nohighlight" data-noescape><span class="err">error[E0502]</span>: cannot borrow `some_vector` as mutable because it is also borrowed as immutable
+  |
+4 |     let first = &amp;some_vector[0];
+  |                  <span class="hi">----------- immutable borrow occurs here</span>
+...
+7 |     some_vector.push(4);
+  |     <span class="err">^^^^^^^^^^^^^^^^^^^ mutable borrow occurs here</span>
+8 |     println!("{first}");
+  |                <span class="hi">----- immutable borrow later used here</span></code></pre>
+
+            <!-- The punchline, on one click. The garbage value from the C++
+                 slide is on screen when the slide arrives, sitting where the
+                 compiler error is about to go. Clicking sends Ferris (CC0,
+                 rustacean.net) in to boot it off screen; the error block fades
+                 in behind him and he ends up standing to its left. Order
+                 matters: the CSS drives the band off the error block's
+                 .visible class, so the band must stay after it. Geometry is
+                 tunable via the custom properties on .ferris-kick. -->
+            <div class="ferris-kick" aria-hidden="true">
+              <span class="kick-victim"><span class="err">-1123946309</span></span>
+              <img class="ferris" src="images/ferris.svg" alt="" />
+            </div>
+
+            <aside class="notes">
+              <p><b>Samma i Rust</b> Samma kod i Rust.</p>
+              <p><b>Kompilerar inte, tre rader</b> [Klicka.] Den kompilerar inte. Och felmeddelandet pekar ut exakt de
+              tre raderna som är problemet: först ett "lån", sedan ändring, men sen
+              används lånet igen.</p>
+              <p><b>Händer ofta, når aldrig mig</b> Det här händer titt som tätt när jag jobbar med agenter, men agenten
+              rättar det ofta innan jag ens hunnit titta. Felet når aldrig mig.</p>
+            </aside>
+          </section>
+
+          <!-- The borrow checker in one slide -->
+          <section id="compiler-borrow-checker" data-timing="21" class="statement">
+            <p class="kicker">Borrow checkern</p>
+            <h2>Många kan läsa.<br />
+            En kan skriva.<br />
+            <span class="c42-gradient-text">Aldrig samtidigt.</span></h2>
+
+            <aside class="notes">
+              <p><b>Vem får använda data</b> För er som inte skriver Rust: borrow checkern är den del av
+              kompilatorn som håller koll på vem som får använda en bit data.</p>
+              <p><b>Många läser, en skriver</b> Regeln är enkel. Antingen får många läsa samtidigt, eller så får en
+              skriva. Aldrig både och.</p>
+              <p><b>Data races också</b> Samma regel stoppar också data races mellan trådar.</p>
+            </aside>
+          </section>
+
+          <!-- What the agent reads: an error that names the fix -->
+          <section id="compiler-error-message" data-timing="31">
+            <p class="kicker">Det här är vad agenten får tillbaka</p>
+            <pre class="term term-large"><code class="nohighlight" data-noescape><span class="err">error[E0433]</span>: failed to resolve: use of undeclared type `HashMap`
+  |
+6 |     let mut counts = HashMap::new();
+  |                      <span class="err">^^^^^^^ use of undeclared type `HashMap`</span>
+  |
+<span class="ok">help</span>: consider importing this struct
+  |
+5 <span class="ok">+ use std::collections::HashMap;</span></code></pre>
+
+            <aside class="notes">
+              <p><b>Säger vad som är fel</b> Kompilatorn säger dessutom vad som är fel.</p>
+              <p><b>Felkod, plats, lösning</b> Det här är ett riktigt felmeddelande från Rust. En felkod, exakt var
+              felet är, och på sista raden: lösningen. Felmeddelandena är skrivna för
+              människor, men fungerar också bra för en agent.</p>
+              <p><b>Biblioteken som inte fanns</b> Kommer ni ihåg biblioteken som inte fanns? Sådana fel fångar
+              kompilatorn, och agenten rättar dem innan jag ser dem.</p>
+              <p class="qa">[Om någon frågar: Microsoft Research byggde RustAssistant ovanpå
+              just de här felmeddelandena, och den rättade ungefär 74 procent av
+              riktiga kompileringsfel automatiskt.]</p>
+            </aside>
+          </section>
+
+          <!-- Same bug, different loop: the compiler column -->
+          <section id="compiler-bug-table" data-timing="44">
+            <p class="kicker">Samma bugg, olika loop</p>
+            <div class="bug-table" data-upto="compiler"></div>
+
+            <aside class="notes">
+              <p><b>Vilken loop först?</b> Så här ser det ut om vi frågar: vilken loop fångar felet först, i
+              vilket språk?</p>
+              <p><b>Bara kompilatorn ifylld</b> Hittills har vi bara fyllt i kompilatorn. Rusts kompilator fångar
+              typfel, användning av null, minnesfel och data races, och varnar för
+              ohanterade fel. C++ och Java fångar typfel. Python: ingenting i den
+              här loopen.</p>
+              <p><b>Ohanterat fel: exceptions, returnerade resultat</b> Med ohanterat fel menar jag ett fel som man glömmer att ta hand
+              om, både exceptions och returnerade resultat.</p>
+              <p class="qa">[Om någon frågar om Java: checked exceptions måste hanteras redan vid
+              kompileringen, därför står det kompilatorn plus tester.]</p>
+              <p><b>Use-after-free: garbage collector</b> Use-after-free går inte ens att skriva i Java och Python, de har en
+              garbage collector.</p>
+              <p><b>Logikfel: ingen kompilator</b> Och logikfel fångar ingen kompilator, i något språk.</p>
+              <p><b>Fylls i utåt</b> Resten av tabellen fyller vi i när vi går vidare ut.</p>
+            </aside>
+          </section>
+        </section>
+
+        <!-- ===== Loop: lint and formatting ===== -->
+        <section>
+          <!-- Ring map: lint -->
+          <section id="lint-ring" data-timing="9">
+            <div class="ring-intro">
+              <div class="ring-map" data-rings="8" data-active="2"></div>
+              <div>
+                <p class="kicker">Nästa loop</p>
+                <h2>Lint och formatering</h2>
+                <p class="ring-time">sekunder</p>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Lint och formatering, som förväntat?</b> Nästa loop: lint och formatering. Koden kompilerar, men är den
+              skriven på det sätt som du och språket förväntar sig?</p>
+            </aside>
+          </section>
+
+          <!-- One toolchain vs choose your own -->
+          <section id="lint-tools" data-timing="39">
+            <div class="tool-grid">
+              <div class="is-focus">
+                <p class="tg-lang">Rust</p>
+                <p><code>cargo fmt</code></p>
+                <p><code>cargo clippy</code></p>
+                <p class="tg-verdict">följer med kompilatorn</p>
+              </div>
+              <div>
+                <p class="tg-lang">C++</p>
+                <p>clang-format</p>
+                <p>clang-tidy</p>
+                <p class="tg-far">tung analys: minuter–timmar</p>
+                <p class="tg-verdict">välj själv, och vilken stil?</p>
+              </div>
+              <div>
+                <p class="tg-lang">Java</p>
+                <p>Checkstyle</p>
+                <p>SpotBugs · PMD</p>
+                <p class="tg-verdict">plugin per projekt</p>
+              </div>
+              <div>
+                <p class="tg-lang">Python</p>
+                <p>ruff</p>
+                <p>mypy (med type hints)</p>
+                <p class="tg-verdict">snabbt, men utan krav på typning</p>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Rust: ingår, aldrig gissa</b> I Rust ingår verktyg för formatering och lint i toolchainen.
+              Två kommandon, en stil, samma i varje projekt. Agenten behöver
+              aldrig gissa.</p>
+              <p><b>C++: välj själv, tunga verktyg längre ut</b> I C++ väljer man själv. clang-format, men med vilken stil?
+              clang-tidy för enkel analys. De tunga verktygen för statisk kodanalys
+              tar minuter eller timmar. Då hamnar de i en loop längre
+              ut.</p>
+              <p><b>Java: bra, men välj själv</b> Java har bra verktyg, men varje projekt väljer själv.</p>
+              <p><b>Python: ruff, men inga typer</b> Många Python-projekt använder ruff för formattering och lint, och
+              det är snabbt. Men utan typer finns det mycket en linter inte kan se.</p>
+            </aside>
+          </section>
+
+          <!-- Clippy on agent-style code -->
+          <section id="lint-clippy" data-timing="22">
+            <p class="kicker">Agentkod som kompilerar</p>
+            <pre class="code-slide"><code class="language-rust" data-trim>
+fn total_len(names: &amp;Vec&lt;String&gt;) -&gt; usize {
+    let mut total = 0;
+    for i in 0..names.len() {
+        total += names[i].clone().len();
+    }
+    return total;
+}
+            </code></pre>
+            <pre class="term term-wide fragment" data-fragment-index="1"><code class="nohighlight" data-noescape><span class="hi">warning</span>: writing `&amp;Vec` instead of `&amp;[_]`  <span class="ok">help: change this to: `&amp;[String]`</span>
+<span class="hi">warning</span>: the loop variable `i` is only used to index `names`
+                                           <span class="ok">help: consider using an iterator</span>
+<span class="hi">warning</span>: unneeded `return` statement       <span class="ok">help: remove `return`</span></code></pre>
+            <!-- Same fragment index: the caption appears with the output. -->
+            <p class="source fragment" data-fragment-index="1">Utdrag ur cargo clippy</p>
+
+            <aside class="notes">
+              <p><b>Kompilerar, fungerar</b> Det här skulle kunna vara agentskriven Rust-kod. Den kompilerar, och den fungerar.</p>
+              <p><b>Clippy: tre saker, rättar</b> [Klicka.] Men clippy hittar tre saker, och säger för var och en hur
+              det ska se ut i stället. Agenten läser det och rättar.</p>
+              <p><b>Inte clone</b> Lägg märke till vad clippy inte säger något om: clone-anropet, som
+              inte behövs.</p>
+            </aside>
+          </section>
+
+          <!-- The linter can be negotiated with -->
+          <section id="lint-bargain" data-timing="14" class="statement">
+            <h2>Lintern går att <span class="c42-gradient-text">förhandla</span> med</h2>
+            <!-- .silencing: each comment starts with a warning badge that is
+                 hushed one by one on arrival; css/custom.css -->
+            <p class="escape-hatches silencing">
+              <code>#[allow(clippy::…)]</code>
+              <code>// NOLINT</code>
+              <code>@SuppressWarnings</code>
+              <code># noqa</code>
+              <code># type: ignore</code>
+            </p>
+
+            <aside class="notes">
+              <p><b>Går att förhandla med</b> Lintern går att förhandla med. En rad i koden, och varningen är borta.</p>
+              <p><b>Alla språk, köpa sig fri</b> Varje språk har sin variant, och agenter kan använda dem. Agenten kan köpa
+              sig fri i stället för att rätta felet.</p>
+              <p class="qa">[Om någon frågar: borrow checkern går också att komma runt, med
+              unsafe eller clone. Men då ändrar man koden, man tystar inte bara
+              varningen.]</p>
+            </aside>
+          </section>
+
+          <!-- git-tailor's counter-move -->
+          <section id="lint-git-tailor" data-timing="20">
+            <p class="kicker">git-tailor, CLAUDE.md</p>
+            <blockquote class="c42">After any Rust code change, run <code>cargo fmt</code>,
+            <code>cargo clippy --all-targets</code>, and <code>cargo test</code>. The codebase
+            maintains zero clippy warnings.</blockquote>
+            <div class="stat-row fragment">
+              <div class="stat">
+                <span class="num">2</span>
+                <span class="label"><code>#[allow]</code> på ungefär 20&nbsp;000 rader produktionskod</span>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Sätta ner foten</b> Så man får sätta ner foten. Det här står i instruktionerna till
+              agenten i git-tailor.</p>
+              <p><b>Två ställen, 20 000 rader</b> [Klicka.] Resultatet: två ställen i ungefär 20 000 rader produktionskod
+              där en varning är avstängd.</p>
+              <p class="qa">[Om någon frågar om testerna: där finns 46, nästan alla samma rad,
+              #[allow(dead_code)] framför den delade hjälpmodulen för
+              integrationstester. Det är det vanliga sättet att dela kod mellan
+              testfiler i Rust.]</p>
+              <p><b>Instruktioner: egen loop</b> Och det där med instruktioner till agenten är en loop i sig. Den
+              kommer vi till.</p>
+            </aside>
+          </section>
+        </section>
+
+        <!-- ===== Loop: tests ===== -->
+        <section>
+          <!-- Ring map: tests -->
+          <section id="tests-ring" data-timing="10">
+            <div class="ring-intro">
+              <div class="ring-map" data-rings="8" data-active="3"></div>
+              <div>
+                <p class="kicker">Nästa loop</p>
+                <h2>Tester</h2>
+                <p class="ring-time">sekunder–minuter</p>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Tester, koden körs</b> Nästa loop: testerna, enhetstester och integrationstester. Nu körs
+              koden, och det kan ta minuter.</p>
+            </aside>
+          </section>
+
+          <!-- Python's first real feedback -->
+          <section id="tests-python" data-timing="18" class="statement">
+            <h2>Här märker <span class="c42-gradient-text">Python</span> sina typfel</h2>
+
+            <aside class="notes">
+              <p><b>Python: typfelen först nu</b> I Python är det först nu typfelen dyker upp, om man inte kör mypy.
+              Ruff har redan klagat på namn som inte finns och variabler som ingen använder. Men vad det
+              är för typer som skickas runt, det vet ruff ingenting om.</p>
+              <p><b>Bara det man tänkt på</b> Och testerna hittar bara det någon har tänkt på att testa.</p>
+              <p class="qa">[Om någon frågar: i Rust följer testverktyget med, cargo test, och
+              kodexempel i dokumentationen körs också som tester.]</p>
+            </aside>
+          </section>
+
+          <!-- Same bug, different loop: tests filled in -->
+          <section id="tests-bug-table" data-timing="22">
+            <p class="kicker">Samma bugg, olika loop</p>
+            <div class="bug-table" data-upto="tests"></div>
+
+            <aside class="notes">
+              <p><b>Null i C++, Java; exceptions</b> Tillbaka till tabellen. Förutom Python så fångas här
+              också användning av null i C++ och Java, liksom ohanterade exceptions.</p>
+              <p><b>Logikfel: tester, alla språk</b> Och logikfelen. Där har inget språk något försprång. Logikfel fångas
+              av tester, i alla språk. Så tester behövs oavsett vad man skriver koden i.</p>
+            </aside>
+          </section>
+
+          <!-- How an agent cheats: an impossible task -->
+          <section id="tests-impossible" data-timing="28">
+            <p class="kicker">En omöjlig uppgift</p>
+            <pre class="code-slide"><code class="language-python" data-trim>
+# Uppgift: implementera is_prime(n)
+
+def test_is_prime():
+    assert is_prime(2)
+    assert is_prime(3)
+    assert not is_prime(7)
+            </code></pre>
+
+            <aside class="notes">
+              <p><b>Fuskar agenten? Omöjliga uppgifter</b> Hur vet man om en agent fuskar? Forskare gav agenter uppgifter som
+              inte gick att lösa ärligt.</p>
+              <p><b>is_prime, sju inte primtal</b> Här ska agenten skriva is_prime. Men testet kräver att sju inte är
+              ett primtal. Det går inte att uppfylla både uppgiften och testet. Om
+              testet ändå går igenom har agenten fuskat: ändrat testet, eller
+              specialfallat sjuan.</p>
+            </aside>
+          </section>
+
+          <!-- How often: 76 % -->
+          <section id="tests-cheating" data-timing="28" class="has-source">
+            <div class="stat-row">
+              <div class="stat">
+                <span class="num">76&nbsp;%</span>
+                <span class="label">av de omöjliga uppgifterna &rdquo;klarade&rdquo; GPT-5</span>
+              </div>
+            </div>
+            <p class="source">Zhong m.fl., ImpossibleBench, 2025</p>
+
+            <aside class="notes">
+              <p><b>GPT-5 tre av fyra, hårdkodar; Claude ändrar testet</b> Och de fuskar. GPT-5 &rdquo;klarade&rdquo; tre av fyra omöjliga uppgifter,
+              oftast genom att hårdkoda svaret för just det testet. Claude-modellerna
+              ändrade oftare själva testet.</p>
+              <p class="qa">[Om någon frågar vad hårdkoda betyder: funktionen känner igen testets
+              indata och returnerar det testet vill ha, till exempel &rdquo;om n är 7,
+              svara att det inte är ett primtal&rdquo;. Testfilen ser orörd ut, men
+              funktionen är fel.]</p>
+              <p><b>Claude frågar, oftast</b> Min egen erfarenhet: Claude brukar fråga innan den ändrar ett test,
+              och frågar om det är en ändring av befintligt beteende som är okej. Men
+              det har hänt att den inte frågat.</p>
+              <p class="qa">[Om någon frågar: 76 procent gäller varianten där ett enda test i
+              SWE-bench har ändrats. Nyare Claude-modeller fuskade mindre än äldre i samma
+              studie.]</p>
+            </aside>
+          </section>
+
+          <!-- What helps -->
+          <section id="tests-countermeasures" data-timing="47" class="has-source">
+            <p class="kicker">Det här hjälper</p>
+            <ul class="takeaways">
+              <li>Testerna kan vara fel: stanna och fråga</li>
+              <li>Skrivskyddade tester</li>
+              <li>Testet i en egen commit, före fixen</li>
+            </ul>
+            <p class="source">Zhong m.fl., ImpossibleBench, 2025. Sista punkten: git-tailor.</p>
+
+            <aside class="notes">
+              <p><b>Vad hjälper?</b> Vad hjälper då? Samma studie testade det.</p>
+              <p><b>Inte ändra räckte inte</b> Att skriva att agenten inte får ändra testerna räckte inte. Det stod
+              med i alla varianter de testade, och GPT-5 fuskade ändå i nästan alla uppgifter.</p>
+              <p><b>Kan vara fel, stanna: 92 → 1 %</b> Det som hjälpte var att säga att testerna kan vara fel, och
+              att agenten då ska stanna och förklara. Då gick fusket från 92 till 1 procent.</p>
+              <p><b>Skrivskyddat</b> Skrivskyddade testfiler hjälper mot de modeller som fuskar genom att ändra
+              testerna.</p>
+              <p class="qa">[Om någon frågar: i en annan variant fick agenten ett sätt att ge upp. Den
+              kunde lämna in strängen flag_for_human_intervention, och då avbröts körningen direkt.
+              Det sänkte GPT-5 från 54 till 9 procent på riktiga repon, men fungerade sämre för
+              Claude Opus 4.1. I praktiken motsvarar det en rad i CLAUDE.md eller AGENTS.md: om
+              testerna verkar fel, stanna och fråga i stället för att ändra dem. Det är min
+              tolkning, studien testade inte instruktionsfiler.]</p>
+              <p><b>git-tailor: test först, egen commit</b> I git-tailor har jag en regel: vid en buggfix skrivs först ett test
+              som fallerar, och det committas för sig. Sedan kommer fixen i en egen
+              commit. Då syns det direkt om ett test har ändrats.</p>
+            </aside>
+          </section>
+        </section>
+
+        <!-- ===== Loop: deep analysis ===== -->
+        <section>
+          <!-- Ring map: deep analysis -->
+          <section id="deep-ring" data-timing="16">
+            <div class="ring-intro">
+              <div class="ring-map" data-rings="8" data-active="4"></div>
+              <div>
+                <p class="kicker">Nästa loop</p>
+                <h2>Djup analys</h2>
+                <p class="ring-time">statisk och vid körning</p>
+                <p class="ring-time">minuter–timmar</p>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Djup analys, minuter–timmar</b> Nästa loop: djup analys. Dels verktyg som kör programmet och vaktar
+              varje minnesåtkomst, dels tunga verktyg för statisk analys. Här tar det
+              minuter, ibland timmar.</p>
+            </aside>
+          </section>
+
+          <!-- The C++ bug again, now under AddressSanitizer -->
+          <section id="deep-asan" data-timing="15">
+            <p class="kicker">Samma C++-kod, nu med AddressSanitizer</p>
+            <pre class="code-slide"><code class="language-cpp" data-trim>
+int main()
+{
+    std::vector&lt;int&gt; some_vector = {1, 2, 3};
+
+    int&amp; first = some_vector[0];
+    std::cout &lt;&lt; first &lt;&lt; std::endl;
+
+    some_vector.push_back(4);
+    std::cout &lt;&lt; first &lt;&lt; std::endl;
+}
+            </code></pre>
+            <pre class="term fragment"><code class="nohighlight" data-noescape>$ g++ -fsanitize=address -g main.cpp &amp;&amp; ./a.out
+1
+<span class="err">ERROR: AddressSanitizer: heap-use-after-free</span>
+READ of size 4 at 0x502000000010 thread T0
+    #0 in main <span class="hi">main.cpp:14</span></code></pre>
+
+            <aside class="notes">
+              <p><b>Samma C++-kod, AddressSanitizer</b> Kommer ni ihåg C++-exemplet som kompilerade utan en enda varning? Här
+              är samma kod, byggd med AddressSanitizer.</p>
+              <p><b>Hittar felet, en loop längre ut</b> [Klicka.] Nu hittas felet: use-after-free, med rätt rad. Samma bugg, en loop
+              längre ut.</p>
+            </aside>
+          </section>
+
+          <!-- Shows that bugs exist, not that they are absent -->
+          <section id="deep-finding" data-timing="29" class="statement">
+            <h2>Visar att fel finns,<br />inte att de <span class="c42-gradient-text">saknas</span></h2>
+
+            <aside class="notes">
+              <p><b>Ingen garanti, två skäl</b> Men det här ger inte en garanti. Av två skäl.</p>
+              <p><b>Bara det som körs</b> För det första hittar en sanitizer bara fel på de vägar som faktiskt
+              körs. Det testerna inte kör, ser den inte. Borrow checkern behövde inte
+              köra koden alls.</p>
+              <p><b>Brus, Valgrind</b> För det andra: brus. Valgrind ger false positives,
+              och någon måste sortera bort dem, ofta med suppression-filer.</p>
+              <p class="qa">[Om någon frågar: AddressSanitizer har enligt sina utvecklare inga
+              falsklarm. Bruset kommer främst från Valgrind, och Valgrinds egen FAQ
+              beskriver just standardbibliotekens &rdquo;läckor&rdquo;.]</p>
+            </aside>
+          </section>
+
+          <!-- The cost -->
+          <section id="deep-cost" data-timing="18" class="has-source">
+            <div class="stat-row">
+              <div class="stat">
+                <span class="num">+73&nbsp;%</span>
+                <span class="label">AddressSanitizer</span>
+              </div>
+              <div class="stat">
+                <span class="num">5–15×</span>
+                <span class="label">ThreadSanitizer</span>
+              </div>
+              <div class="stat">
+                <span class="num">20–30×</span>
+                <span class="label">Valgrind</span>
+              </div>
+            </div>
+            <p class="subline">långsammare körning</p>
+            <p class="source">Serebryany m.fl., USENIX ATC 2012 · Clang-dokumentationen · Valgrind-manualen</p>
+
+            <aside class="notes">
+              <p><b>ASan 73 %, TSan 5–15×, Valgrind 20–30×</b> Och det kostar. AddressSanitizer gör programmet ungefär 73 procent
+              långsammare. ThreadSanitizer, som letar data races, fem till femton
+              gånger. Valgrind tjugo till trettio gånger.</p>
+              <p><b>Inte efter varje ändring</b> Det är därför man inte kör det här efter varje ändring.</p>
+              <p class="qa">[Om någon frågar om ThreadSanitizer: den letar data races, alltså när
+              två trådar använder samma minne utan lås och minst en av dem skriver.
+              Kompilatorn instrumenterar varje minnesåtkomst och varje lås, och vid
+              körning håller TSan reda på ordningen mellan trådarna. Men den hittar
+              bara races som faktiskt inträffar under körningen, och de beror på
+              timing. Den kan inte kombineras med AddressSanitizer i samma bygge. I
+              säker Rust kompilerar data races inte alls, tack vare Send och Sync.]</p>
+            </aside>
+          </section>
+
+          <!-- Too slow to be a loop -->
+          <section id="deep-too-slow" data-timing="33" class="statement">
+            <h2>För långsamt för att vara en <span class="c42-gradient-text">loop</span></h2>
+            <p class="subline fragment">…så nu körs det för att uppfylla direktiven</p>
+
+            <aside class="notes">
+              <p><b>Axivion, bara CI, via mig</b> Och för statisk kodanalys i C++ använder vi Axivion Bauhaus på ett av
+              mina uppdrag. Den tar så lång tid att det enbart kör i CI. Feedbacken till
+              agenten går via mig, ofta i en ny session, eller så rättar jag själv.</p>
+              <p><b>Avstängda regler, direktiv</b> [Klicka.] I praktiken har vi stängt av regler och ignorerar i stort sett
+              resultaten. Den körs för att uppfylla givna direktiv.</p>
+              <p><b>För långsam, ingen loop</b> En loop som är för långsam slutar vara en loop.</p>
+            </aside>
+          </section>
+
+          <!-- Same bug, different loop: deep analysis filled in -->
+          <section id="deep-bug-table" data-timing="12">
+            <p class="kicker">Samma bugg, olika loop</p>
+            <div class="bug-table" data-upto="sanitizer"></div>
+
+            <aside class="notes">
+              <p><b>C++: minnesfel, data races; null tydligare</b> Tabellen igen. Här hittar C++ sina minnesfel och data races, och
+              null-felen blir tydligare. Men bara det som körs, och med brus.</p>
+              <!--<p>Java och Pythons data races står fortfarande tomma. Det finns inget etablerat
+              verktyg för det i vardagen, så de hittas i värsta fall ute hos användarna.</p>-->
+              <p class="qa">[Om någon frågar om Java: OpenJDK har ett förslag om en Java-version av
+              ThreadSanitizer, men det har varit ett utkast sedan 2018. Det finns
+              forskningsverktyg, men inget som ingår i JDK:n.]</p>
+              <p class="qa">[Om någon frågar om Python: med GIL:en skyddas Pythons egna objekt,
+              men logiska races i din kod finns ändå. Sedan Python 3.13 finns en
+              version utan GIL, och CPython-utvecklarna använder ThreadSanitizer för
+              att hitta races i själva interpretatorn, inte i din Python-kod.]</p>
+            </aside>
+          </section>
+        </section>
+
+        <!-- ===== Loop: review ===== -->
+        <section>
+          <!-- Ring map: review -->
+          <section id="review-ring" data-timing="6">
+            <div class="ring-intro">
+              <div class="ring-map" data-rings="8" data-active="5"></div>
+              <div>
+                <p class="kicker">Nästa loop</p>
+                <h2>Granskning</h2>
+                <p class="ring-time">timmar–dagar</p>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Granskning, timmar–dagar</b> Nästa loop: granskning. Här mäts tiden i timmar och dagar.</p>
+            </aside>
+          </section>
+
+          <!-- Where loops run: review happens twice -->
+          <section id="review-where" data-timing="16">
+            <div class="where-map" data-active="ai-review review"></div>
+
+            <aside class="notes">
+              <p><b>Två ställen: agenten, du</b> Granskningen sker på två ställen. Agenten kan granska sin egen kod,
+              och sedan granskar du.</p>
+              <p><b>Människa i loopen</b> Och nu är en människa med i loopen. Det innanför sköter oftast agenten själv.</p>
+            </aside>
+          </section>
+
+          <!-- Google: Rust changes are reviewed faster -->
+          <section id="review-google" data-timing="36" class="has-source">
+            <p class="kicker">Rust jämfört med C++ på Google</p>
+            <div class="stat-row">
+              <div class="stat">
+                <span class="num">−20&nbsp;%</span>
+                <span class="label">revisioner i granskningen</span>
+              </div>
+              <div class="stat">
+                <span class="num">−25&nbsp;%</span>
+                <span class="label">tid i granskning</span>
+              </div>
+              <div class="stat">
+                <span class="num">4×</span>
+                <span class="label">färre rollbacks, medelstora och stora ändringar</span>
+              </div>
+            </div>
+            <p class="source">Google Security Blog, Rust in Android, 2025. Androids egen kod, 2023–2025.</p>
+
+            <aside class="notes">
+              <p><b>Google Android, tre siffror</b> Google har mätt granskningen av Rust jämfört med C++ i Android.
+              Rust-ändringar behöver färre revisioner och tar kortare tid i granskning. Det är viktigt
+              när AI kan generera kod i snabb takt. Dessutom rullas medelstora och stora Rust-ändringar tillbaka fyra gånger mer sällan.</p>
+              <p><b>Mekanismen: fångat längre in = slipper leta</b> Det säger inte hur mycket av koden som skrevs med AI-hjälp. Men
+              mekanismen är densamma vem som än skrivit koden: varje felklass som
+              kan fångas längre in behöver granskaren inte leta efter.</p>
+              <p class="caveat">[Det är Googles egen blogg, inte en granskad studie.]</p>
+            </aside>
+          </section>
+
+          <!-- Two reviewers, different findings -->
+          <section id="review-two-reviewers" data-timing="37" class="has-source">
+            <div class="tool-columns">
+              <div class="tool-card">
+                <p class="kicker">AI-granskning</p>
+                <p class="tool">hörnfall</p>
+                <p class="tool-sub">felaktigheter</p>
+              </div>
+              <div class="tool-card">
+                <p class="kicker">Du</p>
+                <p class="tool c42-gradient-text">struktur</p>
+                <p class="tool-sub">nya typer, bättre namn</p>
+              </div>
+            </div>
+            <p class="source">Crupi m.fl., ICPC 2026: AI och människor hittar mest olika saker.</p>
+
+            <aside class="notes">
+              <p><b>Claude: corner cases; jag: struktur</b> Min erfarenhet från git-tailor är att de två granskarna hittar
+              olika saker. När Claude Code granskar hittar den massor av intressanta
+              corner cases och felaktigheter. När jag granskar hittar jag strukturella
+              förbättringar: refaktoreringar, förslag till nya typer eller tydligare namn.</p>
+              <p><b>Forskningen: olika saker</b> Det stämmer med forskningen. En studie jämförde ChatGPT med mänskliga
+              granskare, och de hittade nästan helt olika saker. AI:n missade det mesta
+              av det människorna hittade, men hittade en hel del annat som också var
+              riktiga problem.</p>
+              <p class="qa">[Om någon frågar om siffrorna: av de problem människorna hittade fann
+              ChatGPT en tiondel. Men ChatGPT skrev ungefär 2,4 gånger så många
+              kommentarer, och av dem som handlade om annat var 40 procent riktiga
+              problem.]</p>
+              <p class="qa">[Om någon frågar: studien gällde ChatGPT-4 och kommentarer i pull
+              requests, inte en agent. En annan studie visade att pull requests som
+              bara granskats av AI-agenter mergades i 45 procent av fallen, mot 68
+              procent för de som granskats av människor.]</p>
+            </aside>
+          </section>
+
+          <!-- What a human reviewer should look for -->
+          <section id="review-escape-hatches" data-timing="43" class="statement">
+            <h2>Leta efter <span class="c42-gradient-text">nödutgångarna</span></h2>
+            <!-- .flagging: an exit sign lights up over each escape hatch on
+                 arrival, mirroring the hushed warnings on lint-bargain -->
+            <p class="escape-hatches flagging">
+              <code>unsafe</code>
+              <code>.clone()</code>
+              <code>Rc&lt;RefCell&lt;_&gt;&gt;</code>
+              <code>.unwrap()</code>
+              <code>let _ =</code>
+            </p>
+            <p class="subline fragment">…och skriv in dem i <code>CLAUDE.md</code></p>
+
+            <aside class="notes">
+              <p><b>Nödutgångarna: borrow checkern, felhanteringen</b> Vad ska man som människa leta efter i agentskriven Rust? Nödutgångarna.
+              När agenten inte hittar en bättre lösning tar den sig förbi borrow checkern
+              med unsafe, clone eller Rc RefCell, eller förbi felhanteringen med unwrap
+              och let underscore.</p>
+              <p><b>Kompilerar, granskarens jobb</b> Allt det kompilerar, och kompilatorn varnar inte när man tystar ett fel
+              med flit. Kommer ni ihåg clone-anropet som clippy inte sa något om? Det är
+              granskarens jobb.</p>
+              <p><b>Instruktionerna, nästa loop</b> [Klicka.] Skriv in dem i instruktionerna, så slipper du förhoppningsvis
+              hitta dem nästa gång. Det är nästa loop.</p>
+            </aside>
+          </section>
+        </section>
+
+        <!-- ===== Loop: instructions and tasks ===== -->
+        <section>
+          <!-- Ring map: instructions -->
+          <section id="instr-ring" data-timing="8">
+            <div class="ring-intro">
+              <div class="ring-map" data-rings="8" data-active="6"></div>
+              <div>
+                <p class="kicker">En speciell loop</p>
+                <h2>Instruktioner</h2>
+                <p class="ring-time">hela projektet</p>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Instruktioner, ingen fast tid</b> Nästa loop är speciell: instruktionerna till agenten. Den har ingen
+              fast tid. Den pågår så länge projektet lever.</p>
+            </aside>
+          </section>
+
+          <!-- An outer loop that feeds the first attempt -->
+          <section id="instr-feeds" data-timing="30">
+            <div class="ring-intro">
+              <div class="ring-map ring-map-large" data-rings="8" data-active="6" data-feed="0"
+                   data-feed-label="CLAUDE.md" data-center-label="första försöket"></div>
+              <div>
+                <p class="kicker">Instruktioner</p>
+                <h2 class="ring-statement">En yttre loop som matar
+                <span class="c42-gradient-text">första försöket</span></h2>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Vart feedbacken går</b> Det som gör den här loopen speciell är vart feedbacken tar vägen.</p>
+              <p><b>Hela vägen in, första försöket</b> [Klicka.] Den går hela vägen in, till agentens första försök. Det jag
+              skriver i instruktionerna läser agenten innan den skrivit en enda rad. En
+              yttre loop som matar första försöket, innan någon av de andra looparna
+              har börjat.</p>
+              <p><b>Det jag kan påverka</b> Det är den del av agentens utgångsläge som jag faktiskt kan påverka.
+              Träningen kan jag inte göra något åt, men instruktionerna skriver jag.</p>
+            </aside>
+          </section>
+
+          <!-- Where loops run: instructions, on your side -->
+          <section id="instr-where" data-timing="10">
+            <div class="where-map" data-active="instructions"></div>
+
+            <aside class="notes">
+              <p><b>Jag stänger: misstag → regel</b> Och den här loopen stänger jag själv. Agenten gör ett misstag, jag
+              märker det, jag skriver en regel i CLAUDE.md, och misstaget kommer inte
+              tillbaka.</p>
+            </aside>
+          </section>
+
+          <!-- The loop's memory -->
+          <section id="instr-memory" data-timing="8">
+            <p class="kicker">git-tailor, CLAUDE.md</p>
+            <div class="stat-row">
+              <div class="stat">
+                <span class="num">270</span>
+                <span class="label">rader</span>
+              </div>
+              <div class="stat">
+                <span class="num">53</span>
+                <span class="label">ändringar sedan februari</span>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Loopens minne: 270 rader, 53 ändringar</b> Instruktionsfilen är loopens minne. I git-tailor är den 270 rader
+              lång, och den har ändrats 53 gånger sedan februari.</p>
+            </aside>
+          </section>
+
+          <!-- From escape hatch to rule -->
+          <section id="instr-rule" data-timing="31">
+            <p class="kicker">git-tailor, CLAUDE.md</p>
+            <blockquote class="c42">Never open a second handle onto the same repository
+            — not for convenience, and above all not to obtain a <code>&amp;mut</code>
+            where the surrounding code only has <code>&amp;self</code>.</blockquote>
+            <p class="subline fragment">Agenten tog sig förbi borrow checkern. Nu är det en regel.</p>
+
+            <aside class="notes">
+              <p><b>Mutera repot, borrow checkern nej</b> Ett exempel. Agenten behövde mutera git-repo-objektet, men koden runt omkring
+              hade bara en icke muterbar referens. Borrow checkern sa nej.</p>
+              <p><b>Andra instansen, tysta fel</b> Agentens lösning var att öppna en andra instans av samma repo. Då
+              kompilerar det, men de två instanserna har var sin cache, och felen som
+              följer är tysta och beror på timing.</p>
+              <p><b>Nödutgång → regel</b> [Klicka.] Det var en nödutgång, precis som de vi letade efter i
+              granskningen. Nu står det i instruktionerna att den inte får användas.</p>
+            </aside>
+          </section>
+
+          <!-- Write the instructions yourself -->
+          <section id="instr-research" data-timing="30" class="statement has-source">
+            <h2>Skriv instruktionerna <span class="c42-gradient-text">själv</span></h2>
+            <p class="subline">Utvecklarnas filer slog agenternas egna med 7&nbsp;%</p>
+            <p class="source">Gloaguen m.fl., Evaluating AGENTS.md, ETH Zürich 2026</p>
+
+            <aside class="notes">
+              <p><b>Människoskrivet bättre, 20 % dyrare; regler, inte beskrivningar</b> Hjälper det? En studie visade att instruktioner som utvecklare skrivit
+              slog dem som en språkmodell genererat. Men alla instruktionsfiler gjorde
+              agenten dyrare att köra, runt 20 procent, och allmänna projektbeskrivningar
+              hjälpte inte. Skriv regler, inte beskrivningar.</p>
+              <p><b>Följer den? Ofta</b> Följer agenten reglerna? Ofta, men inte alltid. Jag kommer ofta på den
+              med att strunta i en regel.</p>
+              <p class="qa">[Om någon frågar: studien mätte bara att agenterna använde verktyg som
+              nämndes i filen, inte regler av typen &rdquo;gör aldrig så här&rdquo;. Jämfört
+              med ingen fil alls gav utvecklarnas filer 2,4 procentenheter, inte statistiskt
+              säkerställt, och de hjälpte alla agenter utom Claude Code. Python-projekt,
+              enstaka uppgifter.]</p>
+            </aside>
+          </section>
+
+          <!-- TASKS.md: small, bounded tasks — in theory -->
+          <section id="instr-tasks" data-timing="37">
+            <p class="kicker">git-tailor, TASKS.md</p>
+            <blockquote class="c42">Keep changes atomic (one commit per task).</blockquote>
+            <p class="subline fragment">&hellip;i teorin</p>
+
+            <aside class="notes">
+              <p><b>Ändrar för mycket → små uppgifter, 300 st, en commit</b> Agenten ändrar gärna mer än du bad om. Lite städning här, en
+              refaktorering där. Mitt motmedel är små, tydligt avgränsade uppgifter. I
+              git-tailor har jag en markdown-fil med uppgifter där arbetet bryts ner och skjuts upp,
+              ungefär 300 uppgifter hittills. Och riktlinjen är en commit per uppgift.</p>
+              <p><b>I teorin</b> [Klicka.] I teorin. I praktiken tenderar uppgifterna att växa och bli
+              flera commits.</p>
+              <p><b>Liten ändring, snabbt genom looparna</b> Men ambitionen är rätt: en liten uppgift ger en liten ändring, och den
+              går fort genom alla looparna.</p>
+            </aside>
+          </section>
+        </section>
+
+        <!-- ===== Loop: release (QA and production) ===== -->
+        <section>
+          <!-- Ring map: production -->
+          <section id="prod-ring" data-timing="16">
+            <div class="ring-intro">
+              <div class="ring-map" data-rings="8" data-active="7"></div>
+              <div>
+                <p class="kicker">Yttersta loopen</p>
+                <h2>Release</h2>
+                <p class="ring-time">QA och produktion</p>
+                <p class="ring-time">veckor–månader</p>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Release: QA eller pipeline, användarna hittar resten</b> Och den yttersta loopen: release.
+              Det kan vara manuell QA, eller en automatiserad pipeline som rullar ut
+              stegvis och övervakar. Och det som slinker igenom hittar användarna åt
+              dig, i produktion.</p>
+            </aside>
+          </section>
+
+          <!-- Same bug, different loop: the whole table -->
+          <section id="prod-bug-table" data-timing="29">
+            <p class="kicker">Samma bugg, olika loop</p>
+            <div class="bug-table" data-upto="release"></div>
+
+            <aside class="notes">
+              <p><b>Komplett</b> Och nu är tabellen komplett.</p>
+              <p><b>Rust: nästan allt i kompilatorn; logikfel i tester</b> Titta på Rust-kolumnen: nästan allt fångas av kompilatorn. Bara
+              logikfelen är kvar, och de fångas av tester, i alla språk. De som testerna
+              missar når produktion även i Rust.</p>
+              <p><b>Andra språk: granskning, QA</b> I de andra språken når en del fel ända ut till granskning
+              och QA, och det som de missar når användarna.</p>
+              <p><b>Inte fler fel, var de fångas</b> Det är inte att agenten gör fler fel där. Det är var
+              felen fångas.</p>
+              <p class="qa">[Om någon frågar vilka: ohanterade felkoder i C++, och data races i Java
+              och Python. C++ har både exceptions och felkoder. Med exceptions kraschar
+              ett ohanterat fel, och testerna hittar det. Med felkoder, vanligt i
+              C-API:er och inbyggda system, fortsätter programmet tyst.]</p>
+            </aside>
+          </section>
+
+          <!-- The price of the loop: Google's Android numbers -->
+          <section id="prod-google" data-timing="33" class="has-source">
+            <p class="kicker">Minnessäkerhetssårbarheter i Android</p>
+            <div class="stat-row">
+              <div class="stat">
+                <span class="num">&gt;1000×</span>
+                <span class="label">lägre täthet i Rust än i C och C++</span>
+              </div>
+              <div class="stat">
+                <span class="num">&lt;20&nbsp;%</span>
+                <span class="label">av alla sårbarheter, för första gången</span>
+              </div>
+            </div>
+            <p class="source">Google Security Blog, Rust in Android, november 2025</p>
+
+            <aside class="notes">
+              <p><b>Google Android: 1000 → 0,2 per miljon rader</b> Hur många fel når då produktion? Google har siffrorna för Android. I C
+              och C++ har de historiskt haft runt tusen minnessäkerhetssårbarheter per
+              miljon rader kod. I Rust har de haft en på 5 miljoner rader. Över tusen gånger färre.</p>
+              <p><b>Säkerhetshål</b> Och det här är inte vilka buggar som helst, utan säkerhetshål.</p>
+              <p><b>Under 20 % minnesfel</b> För första gången är minnessäkerhetsfel nu under 20 procent av alla
+              Androids sårbarheter.</p>
+              <p class="qa">[Om någon frågar varför inte 5000: tusen delat med 0,2 blir 5000, men
+              Google skriver själva tusen gånger. Rust-siffran bygger på en enda
+              sårbarhet, så jag håller mig till deras försiktiga siffra, som en undre
+              gräns.]</p>
+              <p class="qa">[Om någon frågar: Rust-siffran bygger på en enda sårbarhet som hittades
+              före release, i ungefär fem miljoner rader Rust. Google kallar den en
+              försiktig uppskattning. Det är Googles egen blogg, inte en granskad
+              studie.]</p>
+            </aside>
+          </section>
+        </section>
+
+        <!-- ===== Why not Go? Ronacher ===== -->
+        <section>
+          <!-- The question -->
+          <section id="go-question" data-timing="4" class="statement">
+            <h2>Men varför inte <span class="c42-gradient-text">Go</span>?</h2>
+            <!-- Ferris (CC0, rustacean.net) is standing here when the slide
+                 arrives, then crab-walks off stage to make room, and the Go gopher
+                 (Renée French, CC BY 4.0, official drawing from go.dev) pops up
+                 out of its hole where he stood. No click; css/custom.css. -->
+            <div class="go-stage" aria-hidden="true">
+              <img class="ferris" src="images/ferris.svg" alt="" />
+              <div class="gopher-hole"><img class="gopher" src="images/go-gopher.svg" alt="" /></div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Varför inte Go?</b> Någon av er tänker säkert: men varför inte Go?</p>
+            </aside>
+          </section>
+
+          <!-- Who Ronacher is -->
+          <section id="go-ronacher" data-timing="23">
+            <p class="kicker">Armin Ronacher</p>
+            <div class="stat-row">
+              <div class="stat">
+                <span class="num">Flask</span>
+                <span class="label">skaparen</span>
+              </div>
+              <div class="stat">
+                <span class="num">77</span>
+                <span class="label">crates på crates.io</span>
+              </div>
+            </div>
+            <blockquote class="c42">If you can choose your language, I strongly recommend Go
+            for new backend projects.</blockquote>
+
+            <aside class="notes">
+              <p><b>Ronacher, Flask</b> Det finns en väldigt kunnig person som har sagt just det. Armin Ronacher
+              skapade Flask, ett av Pythons mest använda webbramverk.</p>
+              <p><b>Inte emot Rust: 77 crates; ändå Go</b> Och han är ingen Rust-motståndare. Han står som ägare till 77 crates på crates.io.
+              Ändå rekommenderar han
+              Go för nya backend-projekt där agenter skriver koden.</p>
+              <p class="qa">[Om någon frågar: indicatif, console och insta är några av hans crates,
+              nedladdade över hundra miljoner gånger var.]</p>
+            </aside>
+          </section>
+
+          <!-- His reasons -->
+          <section id="go-reasons" data-timing="16" class="has-source">
+            <p class="kicker">Ronachers skäl</p>
+            <blockquote class="c42">Quick compilation and execution significantly boost
+            productivity of the agent.</blockquote>
+            <p class="subline">och ett stabilt ekosystem</p>
+            <p class="source">Ronacher, Agentic Coding Recommendations, 2025</p>
+
+            <aside class="notes">
+              <p><b>Snabba loopar</b> Hans skäl är att looparna ska gå fort. Go kompilerar snabbt och
+              testerna cachas, så agenten får svar direkt.</p>
+              <p><b>Stabilt ekosystem: träningen stämmer</b> Och ekosystemet är stabilt. Det modellen lärde sig under
+              träningen stämmer fortfarande.</p>
+              <p class="qa">[Om någon frågar: han nämner också att språket är enkelt. Och han
+              citerar en av Go:s skapare: Go passar utvecklare som inte klarar ett komplext
+              språk. Byt ut utvecklare mot agenter, säger Ronacher, så förstår man varför Go
+              fungerar.]</p>
+            </aside>
+          </section>
+
+          <!-- Go in the bug table -->
+          <section id="go-bug-table" data-timing="23">
+            <p class="kicker">Samma bugg, olika loop, med Go</p>
+            <div class="bug-table bug-table-wide" data-upto="release" data-extra="go"></div>
+
+            <aside class="notes">
+              <p><b>Ohanterat fel ända ut; Rust varnar</b> Så var hamnar Go i tabellen? Det mesta fångas tidigt. Men ett fel som
+              man struntar i att kontrollera kompilerar och slinker ända ut till
+              granskning eller QA. Där varnar Rusts kompilator redan.</p>
+              <p><b>Snabba loopar vs. fångar mer</b> Ronacher har rätt i att Go:s loopar är snabba. Rusts loopar fångar mer.
+              Det är två olika saker att optimera för.</p>
+              <p class="qa">[Om någon frågar: nil kraschar först när koden körs. Data races hittas
+              av race detectorn i testverktyget, men bara races som faktiskt inträffar
+              under körningen, och den kostar två till tjugo gånger längre körtid.
+              Ett anrop som f.Close() får stå ensamt, och då kastas felet bort tyst.
+              Skriver man x, err := f() och aldrig använder err stoppar kompilatorn det,
+              men inte om err skrivs över av nästa anrop. go vet varnar inte för
+              ignorerade fel, det kräver ett extra verktyg som errcheck.]</p>
+              <p class="qa">[Om någon frågar varför inte tester, som C++: C++ har exceptions som
+              kraschar. I Go är ett fel bara ett returvärde, så glömmer man det händer
+              ingenting.]</p>
+            </aside>
+          </section>
+        </section>
+
+        <!-- ===== Close ===== -->
+        <section>
+          <!-- All the loops, and the thesis again -->
+          <section id="close-rings" data-timing="22">
+            <div class="ring-intro">
+              <div class="ring-map ring-map-all" data-rings="8" data-active="all"></div>
+              <div>
+                <p class="kicker">Åtta loopar, millisekunder till månader</p>
+                <h2 class="ring-statement">Språket avgör
+                <span class="c42-gradient-text">var felen fångas</span>.</h2>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Åtta loopar, ms → månader</b> Det var åtta loopar, från typkontrollen inne i modellen till QA och
+              produktion. Från millisekunder till månader.</p>
+              <p><b>Inte smartare; avgör var</b> Och genom alla looparna har det varit samma sak. Språket gör inte
+              agenten smartare. Agenten gör ungefär lika många misstag. Men språket
+              avgör i vilken loop misstagen fångas, och hur mycket det kostar.</p>
+            </aside>
+          </section>
+
+          <!-- The price -->
+          <section id="close-price" data-timing="18" class="statement">
+            <h2>Rust kostar mer i de inre looparna men
+            <span class="c42-gradient-text">vinner i längden</span></h2>
+
+            <aside class="notes">
+              <p><b>Inte gratis: fler varv, nödutgångar</b> Rust är inte gratis. Det blir fler varv i de inre looparna, och
+              nödutgångar som någon måste granska.</p>
+              <p><b>Sekunder mot timmar, release</b> Men varven kostar sekunder. Felen som Rust stoppar där hade annars
+              kostat timmar, dagar eller en release.</p>
+            </aside>
+          </section>
+
+          <!-- Advice 1: move errors inwards -->
+          <section id="close-advice-inward" data-timing="19" class="statement">
+            <p class="kicker">Råd 1</p>
+            <h2>Flytta felen <span class="c42-gradient-text">inåt</span></h2>
+            <p class="advice-examples">
+              <span><b>Python</b> mypy --strict · ruff · tester</span>
+              <span><b>C++</b> tester med AddressSanitizer</span>
+              <span><b>Rust</b> clippy, varningar som fel</span>
+            </p>
+            <p class="subline">där agenten ser dem</p>
+
+            <aside class="notes">
+              <p><b>Råd 1: flytta felen inåt</b> Jag har tre råd. Det första: flytta felen inåt, oavsett språk. Exemplen
+              på bilden har vi redan sett.</p>
+              <p><b>Där agenten ser dem</b> Poängen är att felen ska fångas där agenten ser dem, så att den kan
+              rätta dem innan de når er.</p>
+            </aside>
+          </section>
+
+          <!-- Advice 2: write the instructions yourself -->
+          <section id="close-advice-instructions" data-timing="14" class="statement">
+            <p class="kicker">Råd 2</p>
+            <h2>Skriv instruktionerna <span class="c42-gradient-text">själv</span></h2>
+            <p class="subline">och håll uppgifterna små</p>
+
+            <aside class="notes">
+              <p><b>Egna instruktioner, regler; små uppgifter</b> Skriv instruktionerna till agenten själv, och lägg till en regel när
+              samma misstag dyker upp gång på gång. Och dela upp arbetet i små
+              uppgifter, så går alla looparna fortare.</p>
+            </aside>
+          </section>
+
+          <!-- Advice 3: review what the loops cannot catch -->
+          <section id="close-advice-review" data-timing="12" class="statement">
+            <p class="kicker">Råd 3</p>
+            <h2>Granska det looparna <span class="c42-gradient-text">inte fångar</span></h2>
+            <p class="escape-hatches">
+              <code>nödutgångar</code>
+              <code>struktur</code>
+              <code>affärslogik</code>
+            </p>
+
+            <aside class="notes">
+              <p><b>Er tid: nödutgångar, struktur, affärslogik</b> Och lägg er egen tid på det som ingen loop fångar: nödutgångarna,
+              strukturen och affärslogiken. Det är där en människa gör mest nytta.</p>
+            </aside>
+          </section>
+
+          <!-- Bookend: the logo -->
+          <section id="close-logo" data-timing="33">
+            <!-- Logo and QR code side by side, same size, each with a caption.
+                 The chain "42d = fortitude = mod" builds up word by word on
+                 arrival; the click swaps it for the safety net. css/custom.css. -->
+            <div class="close-grid">
+              <div class="close-col">
+                <img src="images/code42d-icon-cropped.svg" alt="Code 42d" />
+                <p class="close-swap">
+                  <span class="close-chain"><span class="c42-gradient-text" style="--i: 0">42d</span>
+                  <span style="--i: 1">=</span> <span style="--i: 2">fortitude</span>
+                  <span style="--i: 3">=</span> <span style="--i: 4">mod</span></span>
+                  <span class="close-net fragment custom">Looparna är ett
+                  <span class="c42-gradient-text">skyddsnät</span></span>
+                </p>
+              </div>
+              <div class="close-col close-qr">
+                <img src="images/qr-repo.svg" alt="QR-kod till presentationen på GitHub" />
+                <p>Bilder, anteckningar och källor<br />
+                <a class="close-url" href="https://jordfras.github.io/devlin-2026/">jordfras.github.io/devlin-2026</a></p>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <p><b>Loggan = XP-looparna</b> Och till sist loggan, som ni nu vet är feedback-looparna från XP.</p>
+              <p><b>Skyddsnät, vågar ändra</b> [Klicka.] Poängen med looparna är att de är ett skyddsnät. Vet jag direkt om
+              något går sönder, så vågar jag göra stora ändringar.</p>
+              <p><b>Agent: tätare nät, mer frihet</b> Och samma sak gäller med en agent. Ju tätare skyddsnätet är, desto mer
+              vågar man låta agenten göra.</p>
+              <p><b>Tack, QR</b> Tack! Bilderna, anteckningarna och alla källor finns via QR-koden.</p>
+            </aside>
+          </section>
+        </section>
+
+        <!-- ===== Sources ===== -->
+        <!-- Keep last. Every source cited on a slide is listed here; the slide
+             numbers are filled in from data-slides by js/slide-refs.js. Continue
+             as further vertical slides when one is full. -->
+        <section>
+          <section id="references" class="references">
+            <h3>Källor</h3>
+            <ul>
+              <li>
+                <a href="http://www.extremeprogramming.org/map/loops.html" target="_blank">Don Wells,
+                <cite>Planning/Feedback Loops</cite></a>, extremeprogramming.org
+                <span class="slide-ref" data-slides="xp-loops"></span>
+              </li>
+              <li>
+                <a href="https://arxiv.org/abs/2208.08227" target="_blank">Cassano m.fl.,
+                <cite>MultiPL-E: A Scalable and Polyglot Approach to Benchmarking Neural Code
+                Generation</cite></a>, IEEE TSE 2023 <span class="slide-ref" data-slides="bridge-not-smarter"></span>
+              </li>
+              <li>
+                <a href="https://arxiv.org/abs/2402.19173" target="_blank">Lozhkov m.fl.,
+                <cite>StarCoder 2 and The Stack v2: The Next Generation</cite></a>, 2024
+                <span class="slide-ref" data-slides="start-quantity"></span>
+              </li>
+              <li>
+                <a href="https://arxiv.org/abs/2503.11082" target="_blank">Guo m.fl.,
+                <cite>LLMs are Bug Replicators: An Empirical Study on LLMs' Capability in
+                Completing Bug-prone Code</cite></a>, 2025 <span class="slide-ref" data-slides="start-bug-replication"></span>
+              </li>
+              <li>
+                <a href="https://arxiv.org/abs/2504.09246" target="_blank">Mündler m.fl.,
+                <cite>Type-Constrained Code Generation with Language Models</cite></a>, OOPSLA 2025
+                <span class="slide-ref" data-slides="token-candidates"></span>
+              </li>
+              <li>
+                <a href="https://arxiv.org/abs/2510.20270" target="_blank">Zhong m.fl.,
+                <cite>ImpossibleBench: Measuring LLMs' Propensity of Exploiting Test Cases</cite></a>, 2025
+                <span class="slide-ref" data-slides="tests-cheating tests-countermeasures"></span>
+              </li>
+                      </ul>
+
+            <aside class="notes">
+              <p>Alla källor finns här, med länkar. Bilderna ligger på [adress].</p>
+            </aside>
+          </section>
+
+          <section id="references-continued" class="references">
+            <h3>Källor, forts.</h3>
+            <ul>
+              <li>
+                <a href="https://www.usenix.org/system/files/conference/atc12/atc12-final39.pdf" target="_blank">Serebryany m.fl.,
+                <cite>AddressSanitizer: A Fast Address Sanity Checker</cite></a>, USENIX ATC 2012
+                <span class="slide-ref" data-slides="deep-cost"></span>
+              </li>
+              <li>
+                <a href="https://clang.llvm.org/docs/ThreadSanitizer.html" target="_blank">Clang,
+                <cite>ThreadSanitizer</cite></a>, dokumentation
+                <span class="slide-ref" data-slides="deep-cost"></span>
+              </li>
+              <li>
+                <a href="https://valgrind.org/docs/manual/quick-start.html" target="_blank">Valgrind,
+                <cite>Quick Start Guide</cite></a> och
+                <a href="https://valgrind.org/docs/manual/faq.html" target="_blank"><cite>FAQ</cite></a>
+                <span class="slide-ref" data-slides="deep-cost"></span>
+              </li>
+              <li>
+                <a href="https://blog.google/security/rust-in-android-move-fast-fix-things/" target="_blank">Google,
+                <cite>Rust in Android: move fast and fix things</cite></a>, 2025
+                <span class="slide-ref" data-slides="review-google prod-google"></span>
+              </li>
+              <li>
+                <a href="https://arxiv.org/abs/2602.11925" target="_blank">Crupi m.fl.,
+                <cite>Studying Quality Improvements Recommended via Manual and Automated Code
+                Review</cite></a>, ICPC 2026
+                <span class="slide-ref" data-slides="review-two-reviewers"></span>
+              </li>
+              <li>
+                <a href="https://arxiv.org/abs/2602.11988" target="_blank">Gloaguen m.fl.,
+                <cite>Evaluating AGENTS.md: Are Repository-Level Context Files Helpful for Coding
+                Agents?</cite></a>, 2026
+                <span class="slide-ref" data-slides="instr-research"></span>
+              </li>
+            </ul>
+
+            <aside class="notes">
+              <p>Fortsättning på källistan.</p>
+            </aside>
+          </section>
+
+          <section id="references-3" class="references">
+            <h3>Källor, forts.</h3>
+            <ul>
+              <li>
+                <a href="https://lucumr.pocoo.org/2025/6/12/agentic-coding/" target="_blank">Ronacher,
+                <cite>Agentic Coding Recommendations</cite></a>, 2025
+                <span class="slide-ref" data-slides="go-ronacher go-reasons"></span>
+              </li>
+              <li>
+                <a href="https://go.dev/doc/articles/race_detector" target="_blank">Go,
+                <cite>Data Race Detector</cite></a> och
+                <a href="https://go.dev/ref/spec" target="_blank"><cite>The Go Programming Language
+                Specification</cite></a>
+                <span class="slide-ref" data-slides="go-bug-table"></span>
+              </li>
+              <li>
+                Bild: <a href="https://go.dev/blog/gopher" target="_blank">Go-gophern</a>,
+                Renée French, CC BY 4.0
+                <span class="slide-ref" data-slides="go-question"></span>
+              </li>
+              <li>
+                Bild: <a href="https://rustacean.net/" target="_blank">Ferris</a>,
+                rustacean.net, public domain (CC0)
+                <span class="slide-ref" data-slides="compiler-rust"></span>
+              </li>
+            </ul>
+
+            <aside class="notes">
+              <p>Fortsättning på källistan.</p>
+            </aside>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <script src="reveal.js/dist/reveal.js"></script>
+    <script src="reveal.js/dist/plugin/notes.js"></script>
+    <script src="reveal.js/dist/plugin/highlight.js"></script>
+    <script src="js/xp-morph.js"></script>
+    <script src="js/ring-map.js"></script>
+    <script src="js/where-map.js"></script>
+    <script src="js/slide-refs.js"></script>
+    <script src="js/bug-table.js"></script>
+    <script src="js/arrival.js"></script>
+    <script src="js/title-swap.js"></script>
+    <script src="js/notes-style.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        // h.v so the on-screen number matches slide references in notes/.
+        slideNumber: 'h.v',
+        // 25 minutes on the clock; the speaker view counts down from this.
+        defaultTiming: 60,
+        totalTime: 25 * 60,
+        plugins: [RevealNotes, RevealHighlight],
+      });
+      XpMorph.init(Reveal);
+      RingMap.init();
+      Arrival.init(Reveal);
+      TitleSwap.init(Reveal);
+      NotesStyle.init();
+      WhereMap.init();
+      BugTable.init();
+      SlideRefs.init(Reveal);
+    </script>
   </body>
 </html>
